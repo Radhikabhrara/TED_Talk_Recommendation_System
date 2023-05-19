@@ -35,7 +35,7 @@ n, m = df.shape
 st.write(f'<p style="font-size:130%">Dataset contains {n} rows and {m} columns.</p>', unsafe_allow_html=True)   
    
 data= df = dd.read_csv('TED_TALKS_DATA.csv')
-st.write(df)
+st.write(df())
 
 #data = pd.DataFrame(data)
 if 'numpy' in sys.modules:
