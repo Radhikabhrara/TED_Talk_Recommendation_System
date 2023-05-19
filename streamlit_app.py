@@ -39,7 +39,7 @@ data=df
 if 'numpy' in sys.modules:
     del sys.modules['numpy']
 
-st.dataframe(data.head())
+st.write(data.head())
 #data = data.astype(bool)
 st.table(data.head())
 #data= np.bool_(False)
