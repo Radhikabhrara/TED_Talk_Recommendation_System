@@ -1,5 +1,4 @@
-python=2.7 
-numpy=1.6 pandas
+numpy=1.6 
 Pillow==8.1.0
 notebook==6.2.0
 mxnet-mkl==1.6.0 
