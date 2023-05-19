@@ -5,7 +5,8 @@ import numpy as np
 import io
 import PIL
 from PIL import Image
-
+import requests
+from io import BytesIO
 
 import difflib
 import nltk
@@ -138,13 +139,15 @@ def recommend_talks(talk_content,n, data=df):
       #st.write("check out this [link](%s)" % url)
       
       st.write("Recommendation :- %s" %name)
-      image = Image.open(pic)
-      response = requests.get(pic)
-      img = Image.open(BytesIO(response.content))
+      # URL of the image
+      url= str(pic)
+      image_url = url 
+      # Fetch the image from the URL
+      response = requests.get(image_url)
+      image = Image.open(BytesIO(response.content))
 
-      st.image(img, caption='Sunrise by the mountains')
-      
-      
+      # Display the image in Streamlit
+      st.image(image, caption='Image Caption', use_column_width=True)
 
 st.subheader("Search for your TED talk here")
 talk_content = [st.text_input(' Enter your Ted Talk keywords : ', "Life")]
