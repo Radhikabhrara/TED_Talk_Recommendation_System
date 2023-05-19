@@ -1,8 +1,8 @@
-
+python=2.7 
+numpy=1.6 pandas
 Pillow==8.1.0
 notebook==6.2.0
 mxnet-mkl==1.6.0 
-numpy==1.19.1
 packaging==20.8
 pandas==1.2.1
 requests==2.25.1
