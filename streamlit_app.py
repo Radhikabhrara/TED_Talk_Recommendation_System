@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import sys
-
+del np.bool
 import tensorrt
 tensorrt.nptype(tensorrt.DataType.HALF)
 import io
