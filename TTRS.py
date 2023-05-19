@@ -138,11 +138,11 @@ def recommend_talks(talk_content,n, data=df):
       #st.write("check out this [link](%s)" % url)
       
       st.write("Recommendation :- %s" %name)
-      #image = Image.open(pic)
-      #response = requests.get(pic)
-      #img = Image.open(BytesIO(response.content))
+      image = Image.open(pic)
+      response = requests.get(pic)
+      img = Image.open(BytesIO(response.content))
 
-      #st.image(img, caption='Sunrise by the mountains')
+      st.image(img, caption='Sunrise by the mountains')
       
       
 
