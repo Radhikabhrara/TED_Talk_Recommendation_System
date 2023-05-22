@@ -36,6 +36,41 @@ def load_css(file_path):
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 	
 load_css('style.css')
+from googleapiclient.discovery import build
+import pandas as pd
+import seaborn as sns
+api_key= "AIzaSyCjPkeYqEA4FqalBl9blpFs9Fnucp3kBUY"
+#channel_id = "UCsT0YIqwnpJCM-mx7-gSA4Q"
+
+channel_ids = ["UCsT0YIqwnpJCM-mx7-gSA4Q",
+               "UCAuUUnT6oDeKwE6v1NGQxug",
+               "UCsooa4yRKGN_zEE8iknghZA",
+               "UC-yTB2bUcin9mmah36sXiYA"]        
+
+youtube = build('youtube', 'v3', developerKey=api_key)
+
+def get_channel_stats(youtube, channel_ids):
+    all_data = []
+    request = youtube.channels().list(
+                part='snippet,contentDetails,statistics',
+                id=','.join(channel_ids))
+    response = request.execute() 
+    
+    for i in range(len(response['items'])):
+        data = dict(Channel_name = response['items'][i]['snippet']['title'],
+                    Subscribers = response['items'][i]['statistics']['subscriberCount'],
+                    Views = response['items'][i]['statistics']['viewCount'],
+                    Total_videos = response['items'][i]['statistics']['videoCount'],
+                    playlist_id = response['items'][i]['contentDetails']['relatedPlaylists']['uploads'])
+        all_data.append(data)
+    
+    return all_data
+
+
+channel_statistics = get_channel_stats(youtube, channel_ids)
+channel_data = pd.DataFrame(channel_statistics)
+st.write(channel_data)
+
 st.write('<p style="font-size:130%">Select TED talk Channel</p>', unsafe_allow_html=True)
 file_format = st.radio('Channels List:', ('TEDx Talks', 'TED-Ed','TEDxYouth','TED' ,'Use Demo Dataset'))
 
