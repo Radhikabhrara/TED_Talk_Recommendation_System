@@ -40,7 +40,7 @@ st.write('<p style="font-size:130%">Select TED talk Channel</p>', unsafe_allow_h
 file_format = st.radio('Channels List:', ('TEDx Talks', 'TED-Ed','TEDxYouth','TED'))
 
 
-use_def = st.checkbox('<p style="font-size:130%">Use Demo Dataset</p>', unsafe_allow_html=True)
+use_def = st.checkbox('\n Use Demo Dataset')
 if use_def:
     data = 'TED_TALKS_DATA.csv'
 data = 'TED_TALKS_DATA.csv'
