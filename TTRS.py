@@ -36,11 +36,11 @@ def load_css(file_path):
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 	
 load_css('style.css')
+st.write('<p style="font-size:130%">Select TED talk Channel</p>', unsafe_allow_html=True)
+file_format = st.radio('Channels List:', ('TEDx Talks', 'TED-Ed','TEDxYouth','TED'))
 
-file_format = st.radio('Select TED talk Channel:', ('TEDx Talks', 'TED-Ed','TEDxYouth','TED'))
 
-
-use_def = st.checkbox('Use Demo Dataset')
+use_def = st.checkbox('<p style="font-size:130%">Use Demo Dataset</p>', unsafe_allow_html=True)
 if use_def:
     data = 'TED_TALKS_DATA.csv'
 data = 'TED_TALKS_DATA.csv'
