@@ -25,17 +25,12 @@ st.set_page_config(layout = "wide", page_title='Radhika_1917631')
 
 st.title("TED Talks Recommendation System")
 import streamlit.components.v1 as components
-def img():
-    # Load custom CSS file for background image
-    components.html(
-        """
-        <style>
-            @import url('style.css');
-        </style>
-        """,
-        height=0,
-    )
-img()
+
+def load_css(file_path):
+    with open(file_path) as f:
+        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+	
+load_css('styles.css')
 
 
 st.write('<p style="font-size:130%">Fetching Dataset</p>', unsafe_allow_html=True)
