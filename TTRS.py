@@ -182,9 +182,30 @@ n, m = df.shape
 st.write(f'<p style="font-size:130%">Dataset contains {n} rows and {m} columns.</p>', unsafe_allow_html=True)   
 st.dataframe(df)
 
-#data = pd.DataFrame(data)
-#st.write(data.head())
-st.subheader("Language Detection")
+
+
+all_vizuals = ["Language Detection" ,"Filtering English language","Adding details & Removing the unnecessary information",
+	      "Removing stopwords","Cleaning punctuations"]
+    sidebar_space(3)         
+    vizuals = st.sidebar.multiselect("Choose which functionalities in processs you want to see 👇", all_vizuals)
+
+    if "Language Detection" in vizuals:
+        st.subheader("Language Detection")
+	st.write(df1)
+    if "Filtering English language" in vizuals:
+        st.subheader("Filtering English language")
+	st.write(df2)
+    if "Adding details & Removing the unnecessary information" in vizuals:
+        st.subheader("Adding details & Removing the unnecessary information")
+	st.write(df3)
+    if "Removing stopwords" in vizuals:
+        st.subheader("Removing stopwords")
+	st.write(df4)
+    if "Cleaning punctuations" in vizuals:
+        st.subheader("Cleaning punctuations")
+	st.write(df5)
+
+
 from langdetect import detect
 def det(x):
     try:
@@ -193,20 +214,20 @@ def det(x):
         language = 'Other'
     return language
 df['language'] = df['Description'].apply(det)
-st.write(df)
-st.subheader("Filtering English language")
+df1=df
+
 filtered_for_english = df.loc[df['language'] == 'en']
 df = df[df['language'] == 'en']
-st.write(df)
+df2=df
+#st.write(df2)
 
+#st.subheader("Adding details & Removing the unnecessary information")
 df['details'] = df["Title"] + ' ' + df['Description']
- 
-st.subheader("Removing the unnecessary information")
 
 df.dropna(inplace = True)
-st.write(df)
+df3=df
 
-st.subheader("Removing stopwords")
+#st.subheader("Removing stopwords")
 def remove_stopwords(text):
   stop_words = stopwords.words('english')
  
@@ -223,7 +244,8 @@ def remove_stopwords(text):
  
   return output
 df['details'] = df['details'].apply(lambda text: remove_stopwords(text))
-st.write(df)
+df4=df
+#t.write(df4)
 
 punctuations_list = string.punctuation
 
@@ -232,9 +254,10 @@ def cleaning_punctuations(text):
 	signal = str.maketrans('', '', punctuations_list)
 	return text.translate(signal)
 
-st.subheader("Cleaning punctuations")
+#t.subheader("Cleaning punctuations")
 df['details'] = df['details'].apply(lambda x: cleaning_punctuations(x))
-st.write(df)
+df5=df
+#t.write(df5)
 
 details_corpus = " ".join(df['details'])
 
