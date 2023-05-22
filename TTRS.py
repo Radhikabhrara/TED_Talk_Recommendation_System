@@ -147,7 +147,13 @@ def recommend_talks(talk_content,n, data=df):
       image = Image.open(BytesIO(response.content))
 
       # Display the image in Streamlit
-      st.image(image, caption='Image Caption', use_column_width=True)
+      #st.image(image, caption='Image Caption', use_column_width=True)
+      desired_size = (300, 300)
+      # Resize the image
+      resized_image = image.resize(desired_size)
+	
+      # Display the resized image
+      st.image(resized_image, caption='TED Talk Thumbnail')
 
 st.subheader("Search for your TED talk here")
 talk_content = [st.text_input(' Enter your Ted Talk keywords : ', "Life")]
