@@ -23,6 +23,11 @@ warnings.filterwarnings('ignore')
 
 st.set_page_config(layout = "wide", page_title='Radhika_1917631')
 
+from PIL import Image
+# Loading Image using PIL
+im = Image.logo.png')
+# Adding Image to web app
+st.set_page_config(page_title="TED Talks Recommendation System", page_icon = im)
 st.title("TED Talks Recommendation System")
 import streamlit.components.v1 as components
 
