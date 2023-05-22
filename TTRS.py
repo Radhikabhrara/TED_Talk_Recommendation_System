@@ -36,57 +36,6 @@ def load_css(file_path):
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 	
 load_css('style.css')
-from googleapiclient.discovery import build
-import pandas as pd
-
-api_key= "AIzaSyCjPkeYqEA4FqalBl9blpFs9Fnucp3kBUY"
-#channel_id = "UCsT0YIqwnpJCM-mx7-gSA4Q"
-
-channel_ids = ["UCsT0YIqwnpJCM-mx7-gSA4Q",
-               "UCAuUUnT6oDeKwE6v1NGQxug",
-               "UCsooa4yRKGN_zEE8iknghZA",
-               "UC-yTB2bUcin9mmah36sXiYA"]        
-
-youtube = build('youtube', 'v3', developerKey=api_key)
-
-def get_channel_stats(youtube, channel_ids):
-    all_data = []
-    request = youtube.channels().list(
-                part='snippet,contentDetails,statistics',
-                id=','.join(channel_ids))
-    response = request.execute() 
-    
-    for i in range(len(response['items'])):
-        data = dict(Channel_name = response['items'][i]['snippet']['title'],
-                    Subscribers = response['items'][i]['statistics']['subscriberCount'],
-                    Views = response['items'][i]['statistics']['viewCount'],
-                    Total_videos = response['items'][i]['statistics']['videoCount'],
-                    playlist_id = response['items'][i]['contentDetails']['relatedPlaylists']['uploads'])
-        all_data.append(data)
-    
-    return all_data
-
-
-channel_statistics = get_channel_stats(youtube, channel_ids)
-channel_data = pd.DataFrame(channel_statistics)
-st.write(channel_data)
-
-st.write('<p style="font-size:130%">Select TED talk Channel</p>', unsafe_allow_html=True)
-file_data = st.radio('Channels List:', ('TEDx Talks', 'TED-Ed','TEDxYouth','TED' ,'Use Demo Dataset'))
-st.write('<p style="font-size:130%">Importing Real-time data through Youtube.</p>', unsafe_allow_html=True)
-
-if file_data == 'TEDx Talks':
-	playlist_id = channel_data.loc[channel_data['Channel_name']=='TEDx Talks', 'playlist_id'].iloc[0]
-elif file_data == 'TED-Ed':
-	playlist_id = channel_data.loc[channel_data['Channel_name']=='TED-Ed', 'playlist_id'].iloc[0]
-elif file_data == 'TEDxYouth':
-	playlist_id = channel_data.loc[channel_data['Channel_name']=='TEDxYouth', 'playlist_id'].iloc[0]
-elif file_data == 'TED':
-	playlist_id = channel_data.loc[channel_data['Channel_name']=='TED', 'playlist_id'].iloc[0]
-elif file_data == 'Use Demo Dataset':
-	data = 'TED_TALKS_DATA.csv'
-#data = 'TED_TALKS_DATA.csv'
-
 def get_video_ids(youtube, playlist_id):
     
     request = youtube.playlistItems().list(
@@ -121,8 +70,6 @@ def get_video_ids(youtube, playlist_id):
         
     return video_ids
 
-video_ids = get_video_ids(youtube, playlist_id)
-
 def get_video_details(youtube, video_ids):
     all_video_stats = []
     
@@ -143,14 +90,93 @@ def get_video_details(youtube, video_ids):
             all_video_stats.append(video_stats)
     
     return all_video_stats
-video_details = get_video_details(youtube, video_ids)
-video_data = pd.DataFrame(video_details)
+from googleapiclient.discovery import build
+import pandas as pd
 
-video_data['Published_date'] = pd.to_datetime(video_data['Published_date']).dt.date
-video_data['Views'] = pd.to_numeric(video_data['Views'])
+api_key= "AIzaSyCjPkeYqEA4FqalBl9blpFs9Fnucp3kBUY"
+#channel_id = "UCsT0YIqwnpJCM-mx7-gSA4Q"
 
-video_data.to_csv('TED_DATA.csv')
-data= 'TED_DATA.csv'
+channel_ids = ["UCsT0YIqwnpJCM-mx7-gSA4Q",
+               "UCAuUUnT6oDeKwE6v1NGQxug",
+               "UCsooa4yRKGN_zEE8iknghZA",
+               "UC-yTB2bUcin9mmah36sXiYA"]        
+
+youtube = build('youtube', 'v3', developerKey=api_key)
+
+def get_channel_stats(youtube, channel_ids):
+    all_data = []
+    request = youtube.channels().list(
+                part='snippet,contentDetails,statistics',
+                id=','.join(channel_ids))
+    response = request.execute() 
+    
+    for i in range(len(response['items'])):
+        data = dict(Channel_name = response['items'][i]['snippet']['title'],
+                    Subscribers = response['items'][i]['statistics']['subscriberCount'],
+                    Views = response['items'][i]['statistics']['viewCount'],
+                    Total_videos = response['items'][i]['statistics']['videoCount'],
+                    playlist_id = response['items'][i]['contentDetails']['relatedPlaylists']['uploads'])
+        all_data.append(data)
+    
+    return all_data
+
+
+channel_statistics = get_channel_stats(youtube, channel_ids)
+channel_data = pd.DataFrame(channel_statistics)
+st.subheader("TED Talks Channel Data")
+st.write(channel_data)
+
+st.write('<p style="font-size:130%">Select TED talk Channel</p>', unsafe_allow_html=True)
+file_data = st.radio('Channels List:', ('TEDx Talks', 'TED-Ed','TEDxYouth','TED' ,'Use Demo Dataset'))
+st.write('<p style="font-size:130%">Importing Real-time data through Youtube.</p>', unsafe_allow_html=True)
+
+if file_data == 'TEDx Talks':
+	playlist_id = channel_data.loc[channel_data['Channel_name']=='TEDx Talks', 'playlist_id'].iloc[0]
+	video_ids = get_video_ids(youtube, playlist_id)
+	video_details = get_video_details(youtube, video_ids)
+	video_data = pd.DataFrame(video_details)
+
+	video_data['Published_date'] = pd.to_datetime(video_data['Published_date']).dt.date
+	video_data['Views'] = pd.to_numeric(video_data['Views'])
+	video_data.to_csv('TED_DATA.csv')
+	data= 'TED_DATA.csv'
+
+elif file_data == 'TED-Ed':
+	playlist_id = channel_data.loc[channel_data['Channel_name']=='TED-Ed', 'playlist_id'].iloc[0]
+	video_ids = get_video_ids(youtube, playlist_id)
+	video_details = get_video_details(youtube, video_ids)
+	video_data = pd.DataFrame(video_details)
+	video_data['Published_date'] = pd.to_datetime(video_data['Published_date']).dt.date
+	video_data['Views'] = pd.to_numeric(video_data['Views'])
+	video_data.to_csv('TED_DATA.csv')
+	data= 'TED_DATA.csv'
+	
+elif file_data == 'TEDxYouth':
+	playlist_id = channel_data.loc[channel_data['Channel_name']=='TEDxYouth', 'playlist_id'].iloc[0]
+	video_ids = get_video_ids(youtube, playlist_id)
+	video_details = get_video_details(youtube, video_ids)
+	video_data = pd.DataFrame(video_details)
+	video_data['Published_date'] = pd.to_datetime(video_data['Published_date']).dt.date
+	video_data['Views'] = pd.to_numeric(video_data['Views'])
+	video_data.to_csv('TED_DATA.csv')
+	data= 'TED_DATA.csv'
+	
+elif file_data == 'TED':
+	playlist_id = channel_data.loc[channel_data['Channel_name']=='TED', 'playlist_id'].iloc[0]
+	video_ids = get_video_ids(youtube, playlist_id)
+	video_details = get_video_details(youtube, video_ids)
+	video_data = pd.DataFrame(video_details)
+	video_data['Published_date'] = pd.to_datetime(video_data['Published_date']).dt.date
+	video_data['Views'] = pd.to_numeric(video_data['Views'])
+	video_data.to_csv('TED_DATA.csv')
+	data= 'TED_DATA.csv'
+	
+elif file_data == 'Use Demo Dataset':
+	data = 'TED_TALKS_DATA.csv'
+#data = 'TED_TALKS_DATA.csv'
+
+
+
 df = pd.read_csv(data)
 data=df
 st.subheader('Dataframe:')
