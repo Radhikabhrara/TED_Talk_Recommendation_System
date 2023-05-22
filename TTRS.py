@@ -148,7 +148,7 @@ def recommend_talks(talk_content,n, data=df):
 
       # Display the image in Streamlit
       #st.image(image, caption='Image Caption', use_column_width=True)
-      desired_size = (300, 300)
+      desired_size = (120, 90)
       # Resize the image
       resized_image = image.resize(desired_size)
 	
