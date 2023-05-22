@@ -235,7 +235,7 @@ df5=df
 #t.write(df5)
 
 details_corpus = " ".join(df['details'])
-
+st.sidebar.header('Steps involved in Processing the data : 👉')
 all_vizuals = ["Language Detection" ,"Filtering English language","Adding details & Removing the unnecessary information",
 	      "Removing stopwords","Cleaning punctuations"]
 sidebar_space(3)         
