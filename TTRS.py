@@ -148,8 +148,9 @@ video_data = pd.DataFrame(video_details)
 
 video_data['Published_date'] = pd.to_datetime(video_data['Published_date']).dt.date
 video_data['Views'] = pd.to_numeric(video_data['Views'])
-data= video_data.to_csv('TED_TALKS_DATA.csv')
 
+video_data.to_csv('TED_TALKS_DATA.csv')
+data= 'TED_TALKS_DATA.csv'
 df = pd.read_csv(data)
 data=df
 st.subheader('Dataframe:')
