@@ -247,13 +247,13 @@ if "Filtering English language" in vizuals:
 	st.subheader("Filtering English language")
 	st.write(df2)
 if "Adding details & Removing the unnecessary information" in vizuals:
-        st.subheader("Adding details & Removing the unnecessary information")
+	st.subheader("Adding details & Removing the unnecessary information")
 	st.write(df3)
 if "Removing stopwords" in vizuals:
-        st.subheader("Removing stopwords")
+	st.subheader("Removing stopwords")
 	st.write(df4)
 if "Cleaning punctuations" in vizuals:
-        st.subheader("Cleaning punctuations")
+	st.subheader("Cleaning punctuations")
 	st.write(df5)
 
 st.text("Training Model")
@@ -261,29 +261,19 @@ vectorizer = TfidfVectorizer(analyzer = 'word')
 vectorizer.fit(df['details'])
 
 def get_similarities(talk_content, data=df):
-
 	# Getting vector for the input talk_content.
 	talk_array1 = vectorizer.transform(talk_content).toarray()
-
 	# We will store similarity for each row of the dataset.
 	sim = []
-	#pea = []
+	
 	for idx, row in data.iterrows():
 		details = row['details']
-
 		# Getting vector for current talk.
 		talk_array2 = vectorizer.transform(
 			df[df['details'] == details]['details']).toarray()
-
 		# Calculating cosine similarities
 		cos_sim = cosine_similarity(talk_array1, talk_array2)[0][0]
-
-		# Calculating pearson correlation
-		#pea_sim = pearsonr(talk_array1.squeeze(), talk_array2.squeeze())[0]
-
 		sim.append(cos_sim)
-		#pea.append(pea_sim)
-
 	return sim #, pea
 
 def recommend_talks(talk_content,n, data=df):
@@ -293,7 +283,6 @@ def recommend_talks(talk_content,n, data=df):
     df.sort_values(by='cos_sim', ascending=
                      False, inplace=True)
  
-    
     recommended_data = df.head(n)
     recommended_data.sort_values(by=['Views'],ascending=False)
     r_pic = recommended_data[["Thumbnails"]]
@@ -317,10 +306,8 @@ def recommend_talks(talk_content,n, data=df):
       desired_size = (240, 180)
       # Resize the image
       resized_image = image.resize(desired_size)
-	
       # Display the resized image
       st.image(resized_image, caption='TED Talk Thumbnail')
-
 	
 hide_default_format = """
        <style>
