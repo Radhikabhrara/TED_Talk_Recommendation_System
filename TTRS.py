@@ -138,11 +138,7 @@ def get_video_details(youtube, video_ids):
                                Published_date = video['snippet']['publishedAt'],
                                Description=video['snippet']['description'],
                                Thumbnails = video['snippet']['thumbnails']['default']['url'],
-                               Views = video['statistics']['viewCount'],
-                               #Likes = video['statistics']['likeCount']
-                               #URL = video['contentDetails']
-                               #Dislikes = video['statistics']['dislikeCount'],
-                               #Comments = video['statistics']['commentCount']
+                               Views = video['statistics']['viewCount']
                                )
             all_video_stats.append(video_stats)
     
@@ -152,10 +148,6 @@ video_data = pd.DataFrame(video_details)
 
 video_data['Published_date'] = pd.to_datetime(video_data['Published_date']).dt.date
 video_data['Views'] = pd.to_numeric(video_data['Views'])
-video_data['Likes'] = pd.to_numeric(video_data['Likes'])
-#video_data['Dislikes'] = pd.to_numeric(video_data['Dislikes'])
-#video_data['Views'] = pd.to_numeric(video_data['Views'])
-#video_data
 data= video_data.to_csv('TED_TALKS_DATA.csv')
 
 df = pd.read_csv(data)
