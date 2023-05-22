@@ -79,7 +79,7 @@ if file_data == 'TEDx Talks':
 	playlist_id = channel_data.loc[channel_data['Channel_name']=='TEDx Talks', 'playlist_id'].iloc[0]
 elif file_data == 'TED-Ed':
 	playlist_id = channel_data.loc[channel_data['Channel_name']=='TED-Ed', 'playlist_id'].iloc[0]
-elif file_data == 'TEDxYouth:
+elif file_data == 'TEDxYouth':
 	playlist_id = channel_data.loc[channel_data['Channel_name']=='TEDxYouth', 'playlist_id'].iloc[0]
 elif file_data == 'TED':
 	playlist_id = channel_data.loc[channel_data['Channel_name']=='TED', 'playlist_id'].iloc[0]
