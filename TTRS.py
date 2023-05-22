@@ -37,9 +37,16 @@ def load_css(file_path):
 	
 load_css('style.css')
 
+file_format = st.radio('Select TED talk Channel:', ('TEDx Talks', 'TED-Ed','TEDxYouth','TED'))
 
-st.write('<p style="font-size:130%">Fetching Dataset</p>', unsafe_allow_html=True)
+
+use_def = st.checkbox('Use Demo Dataset')
+if use_def:
+    data = 'TED_TALKS_DATA.csv'
 data = 'TED_TALKS_DATA.csv'
+
+
+st.write('<p style="font-size:130%">Importing Real-time data through Youtube.</p>', unsafe_allow_html=True)
 df = pd.read_csv(data)
 data=df
 st.subheader('Dataframe:')
