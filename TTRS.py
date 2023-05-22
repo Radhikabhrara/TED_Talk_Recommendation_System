@@ -186,22 +186,21 @@ st.dataframe(df)
 
 all_vizuals = ["Language Detection" ,"Filtering English language","Adding details & Removing the unnecessary information",
 	      "Removing stopwords","Cleaning punctuations"]
-    sidebar_space(3)         
-    vizuals = st.sidebar.multiselect("Choose which functionalities in processs you want to see 👇", all_vizuals)
-
-    if "Language Detection" in vizuals:
-        st.subheader("Language Detection")
+sidebar_space(3)         
+vizuals = st.sidebar.multiselect("Choose which functionalities in processs you want to see 👇", all_vizuals)
+if "Language Detection" in vizuals:
+	st.subheader("Language Detection")
 	st.write(df1)
-    if "Filtering English language" in vizuals:
+if "Filtering English language" in vizuals:
         st.subheader("Filtering English language")
 	st.write(df2)
-    if "Adding details & Removing the unnecessary information" in vizuals:
+if "Adding details & Removing the unnecessary information" in vizuals:
         st.subheader("Adding details & Removing the unnecessary information")
 	st.write(df3)
-    if "Removing stopwords" in vizuals:
+if "Removing stopwords" in vizuals:
         st.subheader("Removing stopwords")
 	st.write(df4)
-    if "Cleaning punctuations" in vizuals:
+if "Cleaning punctuations" in vizuals:
         st.subheader("Cleaning punctuations")
 	st.write(df5)
 
