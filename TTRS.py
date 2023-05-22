@@ -123,7 +123,7 @@ def get_channel_stats(youtube, channel_ids):
 
 channel_statistics = get_channel_stats(youtube, channel_ids)
 channel_data = pd.DataFrame(channel_statistics)
-st.subheader("TED Talks Channel Data")
+st.subheader("TED Talks Channel Data:")
 st.write(channel_data)
 
 st.write('<p style="font-size:130%">Select TED talk Channel</p>', unsafe_allow_html=True)
