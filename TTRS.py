@@ -72,13 +72,92 @@ channel_data = pd.DataFrame(channel_statistics)
 st.write(channel_data)
 
 st.write('<p style="font-size:130%">Select TED talk Channel</p>', unsafe_allow_html=True)
-file_format = st.radio('Channels List:', ('TEDx Talks', 'TED-Ed','TEDxYouth','TED' ,'Use Demo Dataset'))
-
-
-data = 'TED_TALKS_DATA.csv'
-
-
+file_data = st.radio('Channels List:', ('TEDx Talks', 'TED-Ed','TEDxYouth','TED' ,'Use Demo Dataset'))
 st.write('<p style="font-size:130%">Importing Real-time data through Youtube.</p>', unsafe_allow_html=True)
+
+if file_data == 'TEDx Talks':
+	playlist_id = channel_data.loc[channel_data['Channel_name']=='TEDx Talks', 'playlist_id'].iloc[0]
+elif file_data == 'TED-Ed':
+	playlist_id = channel_data.loc[channel_data['Channel_name']=='TED-Ed', 'playlist_id'].iloc[0]
+elif file_data == 'TEDxYouth:
+	playlist_id = channel_data.loc[channel_data['Channel_name']=='TEDxYouth', 'playlist_id'].iloc[0]
+elif file_data == 'TED':
+	playlist_id = channel_data.loc[channel_data['Channel_name']=='TED', 'playlist_id'].iloc[0]
+elif file_data == 'Use Demo Dataset':
+	data = 'TED_TALKS_DATA.csv'
+#data = 'TED_TALKS_DATA.csv'
+
+def get_video_ids(youtube, playlist_id):
+    
+    request = youtube.playlistItems().list(
+                part='contentDetails',
+                playlistId = playlist_id,
+                maxResults = 50)
+    response = request.execute()
+    
+    video_ids = []
+    
+    for i in range(len(response['items'])):
+        video_ids.append(response['items'][i]['contentDetails']['videoId'])
+        
+    next_page_token = response.get('nextPageToken')
+    more_pages = True
+    
+    while more_pages:
+        if next_page_token is None:
+            more_pages = False
+        else:
+            request = youtube.playlistItems().list(
+                        part='contentDetails',
+                        playlistId = playlist_id,
+                        maxResults = 50,
+                        pageToken = next_page_token)
+            response = request.execute()
+    
+            for i in range(len(response['items'])):
+                video_ids.append(response['items'][i]['contentDetails']['videoId'])
+            
+            next_page_token = response.get('nextPageToken')
+        
+    return video_ids
+
+video_ids = get_video_ids(youtube, playlist_id)
+
+def get_video_details(youtube, video_ids):
+    all_video_stats = []
+    
+    for i in range(0, len(video_ids), 50):
+        request = youtube.videos().list(
+                    part='snippet,statistics,contentDetails',
+                    id=','.join(video_ids[i:i+50]))
+        response = request.execute()
+        
+        for video in response['items']:
+            video_stats = dict(
+                               Title = video['snippet']['title'],
+                               Published_date = video['snippet']['publishedAt'],
+                               Description=video['snippet']['description'],
+                               Thumbnails = video['snippet']['thumbnails']['default']['url'],
+                               Views = video['statistics']['viewCount'],
+                               #Likes = video['statistics']['likeCount']
+                               #URL = video['contentDetails']
+                               #Dislikes = video['statistics']['dislikeCount'],
+                               #Comments = video['statistics']['commentCount']
+                               )
+            all_video_stats.append(video_stats)
+    
+    return all_video_stats
+video_details = get_video_details(youtube, video_ids)
+video_data = pd.DataFrame(video_details)
+
+video_data['Published_date'] = pd.to_datetime(video_data['Published_date']).dt.date
+video_data['Views'] = pd.to_numeric(video_data['Views'])
+video_data['Likes'] = pd.to_numeric(video_data['Likes'])
+#video_data['Dislikes'] = pd.to_numeric(video_data['Dislikes'])
+#video_data['Views'] = pd.to_numeric(video_data['Views'])
+#video_data
+data= video_data.to_csv('TED_TALKS_DATA.csv')
+
 df = pd.read_csv(data)
 data=df
 st.subheader('Dataframe:')
