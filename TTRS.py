@@ -163,6 +163,15 @@ def recommend_talks(talk_content,n, data=df):
       # Display the resized image
       st.image(resized_image, caption='TED Talk Thumbnail')
 
+	
+hide_default_format = """
+       <style>
+       #MainMenu {visibility: hidden; }
+       footer {visibility: hidden;}
+       </style>
+       """
+st.markdown(hide_default_format, unsafe_allow_html=True)
+
 st.subheader("Search for your TED talk here")
 talk_content = [st.text_input(' Enter your Ted Talk keywords : ', "Life")]
 n = st.number_input(' Enter number of recommendations you want ', 1)
