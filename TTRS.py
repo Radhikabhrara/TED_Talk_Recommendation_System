@@ -56,7 +56,7 @@ df['details'] = df["Title"] + ' ' + df['Description']
 st.subheader("Removing the unnecessary information")
 
 df.dropna(inplace = True)
-st.write(df.head())
+st.write(df)
 
 st.subheader("Removing stopwords")
 def remove_stopwords(text):
@@ -75,7 +75,7 @@ def remove_stopwords(text):
  
   return output
 df['details'] = df['details'].apply(lambda text: remove_stopwords(text))
-st.write(df.head())
+st.write(df)
 
 punctuations_list = string.punctuation
 
@@ -86,7 +86,7 @@ def cleaning_punctuations(text):
 
 st.subheader("Cleaning punctuations")
 df['details'] = df['details'].apply(lambda x: cleaning_punctuations(x))
-st.write(df.head())
+st.write(df)
 
 details_corpus = " ".join(df['details'])
 
