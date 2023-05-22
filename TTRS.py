@@ -25,6 +25,29 @@ st.set_page_config(layout = "wide", page_title='Radhika_1917631')
 
 st.title("TED Talks Recommendation System")
 
+import base64
+import streamlit as st
+
+
+def get_base64(bin_file):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+def set_background(png_file):
+    bin_str = get_base64(png_file)
+    page_bg_img = '''
+    <style>
+    .stApp {
+    background-image: url("world.png");
+    background-size: cover;
+    }
+    </style>
+    ''' % bin_str
+    st.markdown(page_bg_img, unsafe_allow_html=True)
+
+set_background('./images/background.png')
+
 st.write('<p style="font-size:130%">Fetching Dataset</p>', unsafe_allow_html=True)
 data = 'TED_TALKS_DATA.csv'
 df = pd.read_csv(data)
