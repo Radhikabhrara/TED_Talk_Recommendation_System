@@ -25,9 +25,9 @@ warnings.filterwarnings('ignore')
 
 from PIL import Image
 # Loading Image using PIL
-im = Image.open('logo.png')
+im = Image.open('ilogo.jpg')
 # Adding Image to web app
-st.set_page_config(page_title="TED Talks Recommendation System", page_icon = im)
+st.set_page_config(page_title="Radhika", page_icon = im)
 st.title("TED Talks Recommendation System")
 import streamlit.components.v1 as components
 
