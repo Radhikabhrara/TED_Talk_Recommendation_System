@@ -25,7 +25,7 @@ warnings.filterwarnings('ignore')
 
 from PIL import Image
 # Loading Image using PIL
-im = Image.open('ilogo.png')
+im = Image.open('ilog.jpg')
 # Adding Image to web app
 st.set_page_config(page_title="Radhika", page_icon = im)
 st.title("TED Talks Recommendation System")
