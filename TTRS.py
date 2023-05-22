@@ -218,7 +218,6 @@ df1=df
 filtered_for_english = df.loc[df['language'] == 'en']
 df = df[df['language'] == 'en']
 df2=df
-#st.write(df2)
 
 #st.subheader("Adding details & Removing the unnecessary information")
 df['details'] = df["Title"] + ' ' + df['Description']
