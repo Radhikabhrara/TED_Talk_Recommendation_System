@@ -21,7 +21,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 nltk.download('stopwords')
 warnings.filterwarnings('ignore')
 
-st.set_page_config(layout = "wide", page_title='Radhika_1917631')
+#st.set_page_config(layout = "wide", page_title='Radhika_1917631')
 
 from PIL import Image
 # Loading Image using PIL
