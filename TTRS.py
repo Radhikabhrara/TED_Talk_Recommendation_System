@@ -84,7 +84,7 @@ def get_video_details(youtube, video_ids):
 from googleapiclient.discovery import build
 import pandas as pd
 
-api_key= "AIzaSyCjPkeYqEA4FqalBl9blpFs9Fnucp3kBUY"
+api_key= "AIzaSyDFgYvIgvBxnXSI6yenVx92ZfU_ud8go58"
 channel_ids = ["UCsT0YIqwnpJCM-mx7-gSA4Q",
                "UCAuUUnT6oDeKwE6v1NGQxug",
                "UCsooa4yRKGN_zEE8iknghZA",
@@ -269,6 +269,10 @@ def recommend_talks(talk_content,n, data=df):
 		resized_image = image.resize(desired_size)
 		st.write("%s" %name)
 		st.image(resized_image, caption=cap)
+		
+		st.markdown('''
+		<a href="https://docs.streamlit.io">
+		<img src=resized_image /> </a>''',unsafe_allow_html=True)
 		st.markdown("![Foo]({resized_image})({id_url})")
 		#markdown_code = f"[![({rsized_image}]]({id_url})"
 		# Render the markdown
