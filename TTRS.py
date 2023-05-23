@@ -265,7 +265,7 @@ def recommend_talks(talk_content,n, data=df):
 		st.write("%s" %name)
 		response = requests.get(image_url)
 		image = Image.open(BytesIO(response.content))
-		st.image(image_url,caption=cap).resize(desired_size)
+		st.image(image_url,caption=cap ,width=360)
 		# Generate the markdown code with the embedded URL
 		markdown_code = f"[![image]({image_url})]({id_url})"
 		# Render the markdown
