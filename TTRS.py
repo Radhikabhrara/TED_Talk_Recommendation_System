@@ -75,7 +75,7 @@ def get_video_details(youtube, video_ids):
                                Title = video['snippet']['title'],
                                Published_date = video['snippet']['publishedAt'],
                                Description=video['snippet']['description'],
-                               Thumbnails = video['snippet']['thumbnails']['default']['url'],
+                               Thumbnails = video['snippet']['thumbnails']['maxres']['url'],
                                Views = video['statistics']['viewCount']
                                )
             all_video_stats.append(video_stats)
