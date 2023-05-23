@@ -271,6 +271,7 @@ def recommend_talks(talk_content,n, data=df):
 		# Render the markdown
 		st.markdown(markdown_code, unsafe_allow_html=True)
 		st.text(cap)
+		st.write('               ')
 
 hide_default_format = """
        <style>
