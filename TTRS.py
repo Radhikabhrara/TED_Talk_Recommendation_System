@@ -263,6 +263,7 @@ def recommend_talks(talk_content,n, data=df):
 		desired_size = (240, 180)
 		# Resize the image
 		resized_image = image.resize(desired_size)
+		left, right = st.columns(2)   
 		if i%2 !=0:
 			with left:
 				st.write("Recommendation :- %s" %name)
@@ -285,9 +286,6 @@ agree = st.sidebar.checkbox('I agree')
 if agree:
     st.subheader("Search for your TED talk here")
     talk_content = [st.text_input(' Enter your Ted Talk keywords : ', "Life")]
-    n = st.number_input(' Enter number of recommendations you want ', 1)
+    n = st.number_input(' Enter number of recommendations you want ', 6)
     recommend_talks(talk_content , n)
-    left, right = st.columns(2)   
-
-
-
+    
