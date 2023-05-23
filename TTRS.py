@@ -270,13 +270,11 @@ def recommend_talks(talk_content,n, data=df):
 		st.write("%s" %name)
 		st.image(resized_image, caption=cap)
 		
-		st.markdown('''
-		<a href="https://docs.streamlit.io">
-		<img src=resized_image /> </a>''',unsafe_allow_html=True)
-		st.markdown("![Foo]({resized_image})({id_url})")
-		#markdown_code = f"[![({rsized_image}]]({id_url})"
-		# Render the markdown
-		st.markdown(markdown_code, unsafe_allow_html=True)
+		# Generate the HTML code with the embedded URL
+		html_code = f'<a href={id_url}><img src="{resized_image}" alt="image"></a>'
+		# Render the HTML code
+		st.markdown(html_code, unsafe_allow_html=True)
+		
 		
 hide_default_format = """
        <style>
