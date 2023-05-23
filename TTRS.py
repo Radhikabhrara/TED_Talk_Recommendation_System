@@ -269,7 +269,7 @@ def recommend_talks(talk_content,n, data=df):
     recommended_data.sort_values(by=['Views'],ascending=False)
     r_pic = recommended_data[["Thumbnails"]]
     r_name = recommended_data[["Title"]]
-    r_view = recommended_dat[['Views']]
+    r_view = recommended_data[['Views']]
     st.subheader("Ted Talks you might like :- ")
     for i in range(n):
       pic =r_pic.iloc[i]["Thumbnails"]
