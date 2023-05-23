@@ -249,23 +249,30 @@ def recommend_talks(talk_content,n, data=df):
 	r_pic = recommended_data[["Thumbnails"]]
 	r_name = recommended_data[["Title"]]
 	r_view = recommended_data[['Views']]
+	r_id =recommended_data[['Id']]
 	st.subheader("Ted Talks you might like :- ")
 	for i in reversed(range(n)):
+		id_u = r_id.iloc[i]['Id']
 		pic =r_pic.iloc[i]["Thumbnails"]
 		name = r_name.iloc[i]["Title"]
 		view =r_view.iloc[i]["Views"]
+		id_ur = str(id_u)
+		id_url = "http://www.youtube.com/watch?v=%s" %id_ur
 		url= str(pic)
 		image_url = url 
 		# Fetch the image from the URL
 		response = requests.get(image_url)
 		image = Image.open(BytesIO(response.content))
-		cap = ("Views  :- %s" %view)
+		cap = "Views  :- %s" %view
 		desired_size = (360, 270)
 		# Resize the image
 		resized_image = image.resize(desired_size)
 		st.write("%s" %name)
 		st.image(resized_image, caption=cap)
-	
+		markdown_code = f"[![image]({resized_image})]({id_url})"
+		# Render the markdown
+		st.markdown(markdown_code, unsafe_allow_html=True)
+		
 hide_default_format = """
        <style>
        #MainMenu {visibility: hidden; }
