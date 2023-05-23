@@ -259,23 +259,16 @@ def recommend_talks(talk_content,n, data=df):
 		id_ur = str(id_u)
 		id_url = "http://www.youtube.com/watch?v=%s" %id_ur
 		url= str(pic)
-		image_url = url 
-		# Fetch the image from the URL
-		response = requests.get(image_url)
-		image = Image.open(BytesIO(response.content))
+		image_url = url
 		cap = "Views  :- %s" %view
 		desired_size = (360, 270)
-		# Resize the image
-		resized_image = image.resize(desired_size)
 		st.write("%s" %name)
-		st.image(resized_image, caption=cap)
-		
-		# Generate the HTML code with the embedded URL
-		html_code = f'<a href={id_url}><img src={resized_image}></a>'
-		# Render the HTML code
-		st.markdown(html_code, unsafe_allow_html=True)
-		
-		
+		st.image(image_url,caption=cap).resize(desired_size)
+		# Generate the markdown code with the embedded URL
+		markdown_code = f"[![image]({image_url})]({id_url})"
+		# Render the markdown
+		st.markdown(markdown_code, unsafe_allow_html=True)
+
 hide_default_format = """
        <style>
        #MainMenu {visibility: hidden; }
