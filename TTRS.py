@@ -98,7 +98,9 @@ api_key= "AIzaSyCjPkeYqEA4FqalBl9blpFs9Fnucp3kBUY"
 channel_ids = ["UCsT0YIqwnpJCM-mx7-gSA4Q",
                "UCAuUUnT6oDeKwE6v1NGQxug",
                "UCsooa4yRKGN_zEE8iknghZA",
-               "UC-yTB2bUcin9mmah36sXiYA"]        
+               "UC-yTB2bUcin9mmah36sXiYA",
+	       "UCQSrdt0-Iu8qVEiJyzhrfdQ",
+	       "UCAuUUnT6oDeKwE6v1NGQxug"]        
 
 youtube = build('youtube', 'v3', developerKey=api_key)
 
