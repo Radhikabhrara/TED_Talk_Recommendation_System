@@ -271,7 +271,7 @@ def recommend_talks(talk_content,n, data=df):
     r_name = recommended_data[["Title"]]
     r_view = recommended_data[['Views']]
     st.subheader("Ted Talks you might like :- ")
-    for i in range(n):
+    for i in reversed(range(n)):
       pic =r_pic.iloc[i]["Thumbnails"]
       name = r_name.iloc[i]["Title"]
       view =r_view.iloc[i]["Views"]
