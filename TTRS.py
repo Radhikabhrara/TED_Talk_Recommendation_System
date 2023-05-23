@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
-
 import io
 import PIL
 from PIL import Image
@@ -292,12 +291,6 @@ def recommend_talks(talk_content,n, data=df):
       resized_image = image.resize(desired_size)
       st.image(resized_image, caption=cap)
 	
-left, right = st.columns(2)   
-with left:     
-  # add element on the left side   
-with right:     
-  # add element on the right side
-	
 hide_default_format = """
        <style>
        #MainMenu {visibility: hidden; }
@@ -308,7 +301,6 @@ st.markdown(hide_default_format, unsafe_allow_html=True)
 
 st.sidebar.header('\n Switch to Recommendation system :  👇')
 agree = st.sidebar.checkbox('I agree')
-
 if agree:
     st.subheader("Search for your TED talk here")
     talk_content = [st.text_input(' Enter your Ted Talk keywords : ', "Life")]
