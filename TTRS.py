@@ -137,9 +137,7 @@ with tab2:
     st.plotly_chart(fig, theme=None, use_container_width=True)
 
 	
-fig = px.bar_polar(channel_data, r="Views", 
-                   color="Total_videos", template="plotly_dark",
-                   color_discrete_sequence= px.colors.sequential.Plasma_r)
+fig = pxpx.bar(channel_data, x='Channel_name', y='Views', color="Channel_name" ,hover_name="Total_videos",orientation='h' ,template="plotly_dark"))
 fig.update_layout(title='Views on the videos among TED TAlk Channels:')
 tab1, tab2 = st.tabs(["Streamlit theme (default)", "Plotly native theme"])
 with tab1:
