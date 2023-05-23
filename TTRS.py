@@ -41,15 +41,12 @@ def get_video_ids(youtube, playlist_id):
                 playlistId = playlist_id,
                 maxResults = 50)
     response = request.execute()
-    
     video_ids = []
     
     for i in range(len(response['items'])):
-        video_ids.append(response['items'][i]['contentDetails']['videoId'])
-        
+        video_ids.append(response['items'][i]['contentDetails']['videoId'])       
     next_page_token = response.get('nextPageToken')
     more_pages = True
-    
     while more_pages:
         if next_page_token is None:
             more_pages = False
@@ -63,20 +60,16 @@ def get_video_ids(youtube, playlist_id):
     
             for i in range(len(response['items'])):
                 video_ids.append(response['items'][i]['contentDetails']['videoId'])
-            
-            next_page_token = response.get('nextPageToken')
-        
+            next_page_token = response.get('nextPageToken')     
     return video_ids
 
 def get_video_details(youtube, video_ids):
     all_video_stats = []
-    
     for i in range(0, len(video_ids), 50):
         request = youtube.videos().list(
                     part='snippet,statistics,contentDetails',
                     id=','.join(video_ids[i:i+50]))
         response = request.execute()
-        
         for video in response['items']:
             video_stats = dict(
                                Title = video['snippet']['title'],
@@ -86,14 +79,12 @@ def get_video_details(youtube, video_ids):
                                Views = video['statistics']['viewCount']
                                )
             all_video_stats.append(video_stats)
-    
     return all_video_stats
+
 from googleapiclient.discovery import build
 import pandas as pd
 
 api_key= "AIzaSyCjPkeYqEA4FqalBl9blpFs9Fnucp3kBUY"
-#channel_id = "UCsT0YIqwnpJCM-mx7-gSA4Q"
-
 channel_ids = ["UCsT0YIqwnpJCM-mx7-gSA4Q",
                "UCAuUUnT6oDeKwE6v1NGQxug",
                "UCsooa4yRKGN_zEE8iknghZA",
@@ -102,14 +93,12 @@ channel_ids = ["UCsT0YIqwnpJCM-mx7-gSA4Q",
 	       "UCDAdYdnCDt9zx3p3e_78lEQ"]        
 
 youtube = build('youtube', 'v3', developerKey=api_key)
-
 def get_channel_stats(youtube, channel_ids):
     all_data = []
     request = youtube.channels().list(
                 part='snippet,contentDetails,statistics',
                 id=','.join(channel_ids))
     response = request.execute() 
-    
     for i in range(len(response['items'])):
         data = dict(Channel_name = response['items'][i]['snippet']['title'],
                     Subscribers = response['items'][i]['statistics']['subscriberCount'],
@@ -117,9 +106,7 @@ def get_channel_stats(youtube, channel_ids):
                     Total_videos = response['items'][i]['statistics']['videoCount'],
                     playlist_id = response['items'][i]['contentDetails']['relatedPlaylists']['uploads'])
         all_data.append(data)
-    
     return all_data
-
 
 channel_statistics = get_channel_stats(youtube, channel_ids)
 channel_data = pd.DataFrame(channel_statistics)
@@ -137,7 +124,6 @@ with tab1:
 with tab2:
     # Use the native Plotly theme.
     st.plotly_chart(fig, theme=None, use_container_width=True)
-
 	
 fig = px.bar(channel_data, x='Channel_name', y='Views', color="Channel_name" ,hover_name="Total_videos",template="plotly_dark")
 fig.update_layout(title='Views on the videos among TED TAlk Channels:')
@@ -146,7 +132,6 @@ with tab1:
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 with tab2:
     st.plotly_chart(fig, theme=None,template="plotly_dark", use_container_width=True)
-
 
 st.write('<p style="font-size:130%">Select TED talk Channel</p>', unsafe_allow_html=True)
 file_data = st.radio('Channels List:', ('Use Demo Dataset','TEDx Talks', 'TED-Ed','TEDxYouth','TED' ,'TED Ideas Studio','TED Archive'))
@@ -211,7 +196,6 @@ def cleaning_punctuations(text):
 #t.subheader("Cleaning punctuations")
 df['details'] = df['details'].apply(lambda x: cleaning_punctuations(x))
 df5=df
-#t.write(df5)
 
 details_corpus = " ".join(df['details'])
 
@@ -246,7 +230,6 @@ def get_similarities(talk_content, data=df):
 	talk_array1 = vectorizer.transform(talk_content).toarray()
 	# We will store similarity for each row of the dataset.
 	sim = []
-	
 	for idx, row in data.iterrows():
 		details = row['details']
 		# Getting vector for current talk.
@@ -255,14 +238,11 @@ def get_similarities(talk_content, data=df):
 		# Calculating cosine similarities
 		cos_sim = cosine_similarity(talk_array1, talk_array2)[0][0]
 		sim.append(cos_sim)
-	return sim #, pea
+	return sim 
 
 def recommend_talks(talk_content,n, data=df):
- 
     df['cos_sim'] = get_similarities(talk_content)
- 
-    df.sort_values(by='cos_sim', ascending=
-                     False, inplace=True)
+    df.sort_values(by='cos_sim', ascending= False, inplace=True)
  
     recommended_data = df.head(n)
     recommended_data['Views'] = pd.to_numeric(recommended_data['Views'])
@@ -275,9 +255,6 @@ def recommend_talks(talk_content,n, data=df):
       pic =r_pic.iloc[i]["Thumbnails"]
       name = r_name.iloc[i]["Title"]
       view =r_view.iloc[i]["Views"]
-      #st.write("check out this [link](%s)" % url)
-      
-      st.write("Recommendation :- %s" %name)
       # URL of the image
       url= str(pic)
       image_url = url 
@@ -285,11 +262,18 @@ def recommend_talks(talk_content,n, data=df):
       response = requests.get(image_url)
       image = Image.open(BytesIO(response.content))
       cap = ("Views  :- %s" %view)
-      #st.image(image, caption=cap, use_column_width=True)
       desired_size = (240, 180)
       # Resize the image
       resized_image = image.resize(desired_size)
-      st.image(resized_image, caption=cap)
+      #st.write("check out this [link](%s)" % url)
+      if i%2 !=0:
+	with left:
+		st.write("Recommendation :- %s" %name)
+		st.image(resized_image, caption=cap)
+      else:
+	with right:
+		st.write("Recommendation :- %s" %name)
+		st.image(resized_image, caption=cap)
 	
 hide_default_format = """
        <style>
@@ -306,6 +290,7 @@ if agree:
     talk_content = [st.text_input(' Enter your Ted Talk keywords : ', "Life")]
     n = st.number_input(' Enter number of recommendations you want ', 1)
     recommend_talks(talk_content , n)
+    left, right = st.columns(2)   
 
 
 
