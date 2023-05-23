@@ -124,6 +124,9 @@ def get_channel_stats(youtube, channel_ids):
 
 channel_statistics = get_channel_stats(youtube, channel_ids)
 channel_data = pd.DataFrame(channel_statistics)
+channel_data['Views'] = pd.to_numeric(channel_data['Views'])
+channel_data['Subscribers'] = pd.to_numeric(channel_data['Subscribers'])
+channel_data['Total_videos'] = pd.to_numeric(channel_data['Total_videos'])
 st.subheader("TED Talks Channel Data:")
 st.write(channel_data)
 fig = px.bar(channel_data, x='Channel_name', y='Subscribers', color="Channel_name" ,hover_name="Total_videos")
