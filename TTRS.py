@@ -123,7 +123,7 @@ channel_statistics = get_channel_stats(youtube, channel_ids)
 channel_data = pd.DataFrame(channel_statistics)
 st.subheader("TED Talks Channel Data:")
 st.write(channel_data)
-st.bar_chart(channel_data["Channel_name"],channel_data["Subscribers"])
+st.bar_chart(channel_data["Subscribers"])
 
 st.write('<p style="font-size:130%">Select TED talk Channel</p>', unsafe_allow_html=True)
 file_data = st.radio('Channels List:', ('TEDx Talks', 'TED-Ed','TEDxYouth','TED' ,'Use Demo Dataset'))
