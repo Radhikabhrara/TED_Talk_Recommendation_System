@@ -266,7 +266,7 @@ def recommend_talks(talk_content,n, data=df):
                      False, inplace=True)
  
     recommended_data = df.head(n)
-    recommended_data.sort_values(by=['Views'],ascending=False)
+    recommended_data.sort_values(by=['Views'],ascending=True)
     r_pic = recommended_data[["Thumbnails"]]
     r_name = recommended_data[["Title"]]
     r_view = recommended_data[['Views']]
