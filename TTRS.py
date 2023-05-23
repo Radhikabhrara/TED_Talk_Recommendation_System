@@ -268,8 +268,8 @@ def recommend_talks(talk_content,n, data=df):
       #st.write("check out this [link](%s)" % url)
       if i%2 !=0:
 	with left:
-		st.write("Recommendation :- %s" %name)
-		st.image(resized_image, caption=cap)
+	  st.write("Recommendation :- %s" %name)
+	  st.image(resized_image, caption=cap)
       else:
 	with right:
 		st.write("Recommendation :- %s" %name)
