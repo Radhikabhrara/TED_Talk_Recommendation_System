@@ -134,9 +134,9 @@ with tab1:
 with tab2:
     # Use the native Plotly theme.
     st.plotly_chart(fig, theme=None, use_container_width=True)
-st.plotly_chart(fig, use_container_width=True)
 
-fig = px.scatter(channel_data, x='Channel_name', y='Views', color="Channel_name" ,hover_name="Total_videos")
+
+fig = px.bar(channel_data, x='Channel_name', y='Views', color="Channel_name" ,hover_name="Total_videos")
 tab1, tab2 = st.tabs(["Streamlit theme (default)", "Plotly native theme"])
 with tab1:
     # Use the Streamlit theme.
@@ -144,7 +144,7 @@ with tab1:
 with tab2:
     # Use the native Plotly theme.
     st.plotly_chart(fig, theme=None, use_container_width=True)
-st.plotly_chart(fig, use_container_width=True)
+
 
 
 st.write('<p style="font-size:130%">Select TED talk Channel</p>', unsafe_allow_html=True)
