@@ -144,11 +144,9 @@ fig = px.bar(channel_data, x='Channel_name', y='Views', color="Channel_name" ,ho
 fig.update_layout(title='Views on the videos among TED TAlk Channels:')
 tab1, tab2 = st.tabs(["Streamlit theme (default)", "Plotly native theme"])
 with tab1:
-    # Use the Streamlit theme.
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 with tab2:
-    # Use the native Plotly theme.
-    st.plotly_chart(fig, theme=None, use_container_width=True)
+    st.plotly_chart(fig, theme=None,template="plotly_dark", use_container_width=True)
 
 
 st.write('<p style="font-size:130%">Select TED talk Channel</p>', unsafe_allow_html=True)
@@ -162,7 +160,6 @@ else :
 	video_ids = get_video_ids(youtube, playlist_id)
 	video_details = get_video_details(youtube, video_ids)
 	video_data = pd.DataFrame(video_details)
-
 	video_data['Published_date'] = pd.to_datetime(video_data['Published_date']).dt.date
 	video_data['Views'] = pd.to_numeric(video_data['Views'])
 	video_data.to_csv('TED_DATA.csv')
@@ -174,7 +171,7 @@ st.subheader('Dataframe:')
 n, m = df.shape
 st.write(f'<p style="font-size:130%">Dataset contains {n} rows and {m} columns.</p>', unsafe_allow_html=True)   
 st.dataframe(df)
-st.text("Processing data")
+st.text("Processing data....")
 from langdetect import detect
 def det(x):
     try:
@@ -189,35 +186,25 @@ filtered_for_english = df.loc[df['language'] == 'en']
 df = df[df['language'] == 'en']
 df2=df
 
-#st.subheader("Adding details & Removing the unnecessary information")
 df['details'] = df["Title"] + ' ' + df['Description']
-
 df.dropna(inplace = True)
 df3=df
 
-#st.subheader("Removing stopwords")
+st.text("Few seconds away....")
 def remove_stopwords(text):
   stop_words = stopwords.words('english')
- 
   imp_words = []
- 
   # Storing the important words
   for word in str(text).split():
     word = word.lower()
-     
     if word not in stop_words:
       imp_words.append(word)
- 
   output = " ".join(imp_words)
- 
   return output
+
 df['details'] = df['details'].apply(lambda text: remove_stopwords(text))
 df4=df
-#t.write(df4)
-
 punctuations_list = string.punctuation
-
-
 def cleaning_punctuations(text):
 	signal = str.maketrans('', '', punctuations_list)
 	return text.translate(signal)
@@ -228,6 +215,8 @@ df5=df
 #t.write(df5)
 
 details_corpus = " ".join(df['details'])
+
+st.sidebar.title("MENU:")
 st.sidebar.header('Steps involved in Processing the data : 👉')
 all_vizuals = ["Language Detection" ,"Filtering English language","Adding details & Removing the unnecessary information",
 	      "Removing stopwords","Cleaning punctuations"]
@@ -249,7 +238,7 @@ if "Cleaning punctuations" in vizuals:
 	st.subheader("Cleaning punctuations")
 	st.write(df5)
 
-st.text("Training Model")
+st.text("Training Model.....")
 vectorizer = TfidfVectorizer(analyzer = 'word')
 vectorizer.fit(df['details'])
 
@@ -310,9 +299,14 @@ hide_default_format = """
        """
 st.markdown(hide_default_format, unsafe_allow_html=True)
 
-st.subheader("Search for your TED talk here")
-talk_content = [st.text_input(' Enter your Ted Talk keywords : ', "Life")]
-n = st.number_input(' Enter number of recommendations you want ', 1)
-#talk_content = [str(input(' Enter your Ted Talk keywords : '))]
-recommend_talks(talk_content , n)
+st.sidebar.header('\n Switch to Recommendation system :  👇')
+agree = st.checkbox('I agree')
+
+if agree:
+    st.subheader("Search for your TED talk here")
+    talk_content = [st.text_input(' Enter your Ted Talk keywords : ', "Life")]
+    n = st.number_input(' Enter number of recommendations you want ', 1)
+    recommend_talks(talk_content , n)
+
+
 
