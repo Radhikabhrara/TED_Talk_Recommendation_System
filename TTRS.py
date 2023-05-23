@@ -137,7 +137,7 @@ with tab2:
     st.plotly_chart(fig, theme=None, use_container_width=True)
 
 	
-fig = pxpx.bar(channel_data, x='Channel_name', y='Views', color="Channel_name" ,hover_name="Total_videos",orientation='h' ,
+fig = px.bar(channel_data, x='Channel_name', y='Views', color="Channel_name" ,hover_name="Total_videos",orientation='h' ,
 	       template="plotly_dark")
 fig.update_layout(title='Views on the videos among TED TAlk Channels:')
 tab1, tab2 = st.tabs(["Streamlit theme (default)", "Plotly native theme"])
@@ -150,76 +150,22 @@ with tab2:
 
 
 st.write('<p style="font-size:130%">Select TED talk Channel</p>', unsafe_allow_html=True)
-file_data = st.radio('Channels List:', ('Use Demo Dataset','TEDx Talks', 'TED-Ed','TEDxYouth','TED'))
+file_data = st.radio('Channels List:', ('Use Demo Dataset','TEDx Talks', 'TED-Ed','TEDxYouth','TED' ,'TED Ideas Studio','TED Archive'))
 st.write('<p style="font-size:130%">Importing Real-time data through Youtube.</p>', unsafe_allow_html=True)
 
-if file_data == 'TEDx Talks':
-	playlist_id = channel_data.loc[channel_data['Channel_name']=='TEDx Talks', 'playlist_id'].iloc[0]
+if file_data == 'Use Demo Dataset':
+	data = 'TED_TALKS_DATA.csv' 
+else :
+	playlist_id = channel_data.loc[channel_data['Channel_name']==file_data, 'playlist_id'].iloc[0]
 	video_ids = get_video_ids(youtube, playlist_id)
 	video_details = get_video_details(youtube, video_ids)
 	video_data = pd.DataFrame(video_details)
 
-	video_data['Published_date'] = pd.to_datetime(video_data['Published_date']).dt.date
-	video_data['Views'] = pd.to_numeric(video_data['Views'])
-	video_data.to_csv('TED_DATA.csv')
-	data= 'TED_DATA.csv'
-
-elif file_data == 'TED-Ed':
-	playlist_id = channel_data.loc[channel_data['Channel_name']=='TED-Ed', 'playlist_id'].iloc[0]
-	video_ids = get_video_ids(youtube, playlist_id)
-	video_details = get_video_details(youtube, video_ids)
-	video_data = pd.DataFrame(video_details)
 	video_data['Published_date'] = pd.to_datetime(video_data['Published_date']).dt.date
 	video_data['Views'] = pd.to_numeric(video_data['Views'])
 	video_data.to_csv('TED_DATA.csv')
 	data= 'TED_DATA.csv'
 	
-elif file_data == 'TEDxYouth':
-	playlist_id = channel_data.loc[channel_data['Channel_name']=='TEDxYouth', 'playlist_id'].iloc[0]
-	video_ids = get_video_ids(youtube, playlist_id)
-	video_details = get_video_details(youtube, video_ids)
-	video_data = pd.DataFrame(video_details)
-	video_data['Published_date'] = pd.to_datetime(video_data['Published_date']).dt.date
-	video_data['Views'] = pd.to_numeric(video_data['Views'])
-	video_data.to_csv('TED_DATA.csv')
-	data= 'TED_DATA.csv'
-	
-elif file_data == 'TED':
-	playlist_id = channel_data.loc[channel_data['Channel_name']=='TED', 'playlist_id'].iloc[0]
-	video_ids = get_video_ids(youtube, playlist_id)
-	video_details = get_video_details(youtube, video_ids)
-	video_data = pd.DataFrame(video_details)
-	video_data['Published_date'] = pd.to_datetime(video_data['Published_date']).dt.date
-	video_data['Views'] = pd.to_numeric(video_data['Views'])
-	video_data.to_csv('TED_DATA.csv')
-	data= 'TED_DATA.csv'
-
-elif file_data == 'TEDxYouth':
-	playlist_id = channel_data.loc[channel_data['Channel_name']=='TEDxYouth', 'playlist_id'].iloc[0]
-	video_ids = get_video_ids(youtube, playlist_id)
-	video_details = get_video_details(youtube, video_ids)
-	video_data = pd.DataFrame(video_details)
-	video_data['Published_date'] = pd.to_datetime(video_data['Published_date']).dt.date
-	video_data['Views'] = pd.to_numeric(video_data['Views'])
-	video_data.to_csv('TED_DATA.csv')
-	data= 'TED_DATA.csv'
-
-elif file_data == 'TEDxYouth':
-	playlist_id = channel_data.loc[channel_data['Channel_name']=='TEDxYouth', 'playlist_id'].iloc[0]
-	video_ids = get_video_ids(youtube, playlist_id)
-	video_details = get_video_details(youtube, video_ids)
-	video_data = pd.DataFrame(video_details)
-	video_data['Published_date'] = pd.to_datetime(video_data['Published_date']).dt.date
-	video_data['Views'] = pd.to_numeric(video_data['Views'])
-	video_data.to_csv('TED_DATA.csv')
-	data= 'TED_DATA.csv'
-	
-elif file_data == 'Use Demo Dataset':
-	data = 'TED_TALKS_DATA.csv'
-#data = 'TED_TALKS_DATA.csv'
-
-
-
 df = pd.read_csv(data)
 data=df
 st.subheader('Dataframe:')
