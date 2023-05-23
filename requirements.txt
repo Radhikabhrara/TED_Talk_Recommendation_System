@@ -1,5 +1,6 @@
 google-api-python-client
 dask
+plotly-express
 Pillow==8.1.0
 notebook==6.2.0
 mxnet-mkl==1.6.0 
@@ -8,13 +9,8 @@ pandas==1.3.1
 requests==2.25.1
 scikit-learn==0.24.1
 scipy==1.6.0
-Send2Trash==1.5.0
-six==1.15.0
 sklearn==0.0
 langdetect
-tensorrt
-
-mxnet-mkl==1.6.0 
 nltk==3.8.1
 importlib-metadata==3.4.0
 streamlit==1.16.0
