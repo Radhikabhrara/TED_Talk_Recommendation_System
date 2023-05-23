@@ -260,7 +260,7 @@ def recommend_talks(talk_content,n, data=df):
 		response = requests.get(image_url)
 		image = Image.open(BytesIO(response.content))
 		cap = ("Views  :- %s" %view)
-		desired_size = (240, 180)
+		desired_size = (480, 360)
 		# Resize the image
 		resized_image = image.resize(desired_size)
 		left, right = st.columns(2)   
