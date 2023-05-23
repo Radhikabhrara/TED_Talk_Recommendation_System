@@ -127,6 +127,7 @@ channel_data = pd.DataFrame(channel_statistics)
 st.subheader("TED Talks Channel Data:")
 st.write(channel_data)
 fig = px.bar(channel_data, x='Channel_name', y='Subscribers', color="Channel_name" ,hover_name="Total_videos")
+fig.update_layout(title='Subscribers Distribution among TED TAlk Channels:')
 tab1, tab2 = st.tabs(["Streamlit theme (default)", "Plotly native theme"])
 with tab1:
     # Use the Streamlit theme.
@@ -135,8 +136,11 @@ with tab2:
     # Use the native Plotly theme.
     st.plotly_chart(fig, theme=None, use_container_width=True)
 
-
-fig = px.bar(channel_data, x='Channel_name', y='Views', color="Channel_name" ,hover_name="Total_videos")
+	
+fig = px.bar_polar(channel_data, r="Total_videos", theta="Views",
+                   color="Channel_name", template="plotly_dark",
+                   color_discrete_sequence= px.colors.sequential.Plasma_r)
+fig.update_layout(title='Views on the videos among TED TAlk Channels:')
 tab1, tab2 = st.tabs(["Streamlit theme (default)", "Plotly native theme"])
 with tab1:
     # Use the Streamlit theme.
