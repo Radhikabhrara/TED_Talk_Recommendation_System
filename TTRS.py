@@ -124,7 +124,7 @@ channel_statistics = get_channel_stats(youtube, channel_ids)
 channel_data = pd.DataFrame(channel_statistics)
 st.subheader("TED Talks Channel Data:")
 st.write(channel_data)
-fig = px.bar(channel_data, x='Channel_name', y='Subscribers')
+fig = px.bar(channel_data, x='Channel_name', y='Subscribers', color="Channel_name" ,hover_name="Total_videos")
 st.plotly_chart(fig, use_container_width=True)
 
 
