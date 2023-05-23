@@ -260,18 +260,11 @@ def recommend_talks(talk_content,n, data=df):
 		response = requests.get(image_url)
 		image = Image.open(BytesIO(response.content))
 		cap = ("Views  :- %s" %view)
-		desired_size = (480, 360)
+		desired_size = (360, 270)
 		# Resize the image
 		resized_image = image.resize(desired_size)
-		left, right = st.columns(2)   
-		if i%2 !=0:
-			with left:
-				st.write("Recommendation :- %s" %name)
-				st.image(resized_image, caption=cap)
-		else:
-			with right:
-				st.write("Recommendation :- %s" %name)
-				st.image(resized_image, caption=cap)
+		st.write("%s" %name)
+		st.image(resized_image, caption=cap)
 	
 hide_default_format = """
        <style>
