@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import plotly.express as px
 
 import io
 import PIL
@@ -123,7 +124,9 @@ channel_statistics = get_channel_stats(youtube, channel_ids)
 channel_data = pd.DataFrame(channel_statistics)
 st.subheader("TED Talks Channel Data:")
 st.write(channel_data)
-st.bar_chart(channel_data["Subscribers"])
+fig = px.bar(channel_data, x='Channel_name', y='Subscribers')
+st.plotly_chart(fig, use_container_width=True)
+
 
 st.write('<p style="font-size:130%">Select TED talk Channel</p>', unsafe_allow_html=True)
 file_data = st.radio('Channels List:', ('TEDx Talks', 'TED-Ed','TEDxYouth','TED' ,'Use Demo Dataset'))
