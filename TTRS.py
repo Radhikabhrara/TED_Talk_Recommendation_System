@@ -100,7 +100,7 @@ channel_ids = ["UCsT0YIqwnpJCM-mx7-gSA4Q",
                "UCsooa4yRKGN_zEE8iknghZA",
                "UC-yTB2bUcin9mmah36sXiYA",
 	       "UCQSrdt0-Iu8qVEiJyzhrfdQ",
-	       "UCAuUUnT6oDeKwE6v1NGQxug"]        
+	       "UCDAdYdnCDt9zx3p3e_78lEQ"]        
 
 youtube = build('youtube', 'v3', developerKey=api_key)
 
