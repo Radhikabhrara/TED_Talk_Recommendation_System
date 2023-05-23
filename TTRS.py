@@ -266,7 +266,8 @@ def recommend_talks(talk_content,n, data=df):
                      False, inplace=True)
  
     recommended_data = df.head(n)
-    recommended_data.sort_values(by=['Views'],ascending=True)
+    recommended_data['Views'] = pd.to_numeric(recommended_data['Views'])
+    recommended_data.sort_values(by=['Views'],ascending=False)
     r_pic = recommended_data[["Thumbnails"]]
     r_name = recommended_data[["Title"]]
     r_view = recommended_data[['Views']]
@@ -285,14 +286,17 @@ def recommend_talks(talk_content,n, data=df):
       response = requests.get(image_url)
       image = Image.open(BytesIO(response.content))
       cap = ("Views  :- %s" %view)
-
-      # Display the image in Streamlit
       #st.image(image, caption=cap, use_column_width=True)
       desired_size = (240, 180)
       # Resize the image
       resized_image = image.resize(desired_size)
-      # Display the resized image
       st.image(resized_image, caption=cap)
+	
+left, right = st.columns(2)   
+with left:     
+  # add element on the left side   
+with right:     
+  # add element on the right side
 	
 hide_default_format = """
        <style>
