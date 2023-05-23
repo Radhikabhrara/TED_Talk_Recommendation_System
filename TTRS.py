@@ -241,37 +241,36 @@ def get_similarities(talk_content, data=df):
 	return sim 
 
 def recommend_talks(talk_content,n, data=df):
-    df['cos_sim'] = get_similarities(talk_content)
-    df.sort_values(by='cos_sim', ascending= False, inplace=True)
- 
-    recommended_data = df.head(n)
-    recommended_data['Views'] = pd.to_numeric(recommended_data['Views'])
-    recommended_data.sort_values(by=['Views'],ascending=False)
-    r_pic = recommended_data[["Thumbnails"]]
-    r_name = recommended_data[["Title"]]
-    r_view = recommended_data[['Views']]
-    st.subheader("Ted Talks you might like :- ")
-    for i in reversed(range(n)):
-	pic =r_pic.iloc[i]["Thumbnails"]
-	name = r_name.iloc[i]["Title"]
-	view =r_view.iloc[i]["Views"]
-	url= str(pic)
-	image_url = url 
-	# Fetch the image from the URL
-	response = requests.get(image_url)
-	image = Image.open(BytesIO(response.content))
-	cap = ("Views  :- %s" %view)
-	desired_size = (240, 180)
-	# Resize the image
-	resized_image = image.resize(desired_size)
-	if i%2 !=0:
-		with left:
-			st.write("Recommendation :- %s" %name)
-			st.image(resized_image, caption=cap)
-	else:
-		with right:
-			st.write("Recommendation :- %s" %name)
-			st.image(resized_image, caption=cap)
+	df['cos_sim'] = get_similarities(talk_content)
+	df.sort_values(by='cos_sim', ascending= False, inplace=True)
+	recommended_data = df.head(n)
+	recommended_data['Views'] = pd.to_numeric(recommended_data['Views'])
+	recommended_data.sort_values(by=['Views'],ascending=False)
+	r_pic = recommended_data[["Thumbnails"]]
+	r_name = recommended_data[["Title"]]
+	r_view = recommended_data[['Views']]
+	st.subheader("Ted Talks you might like :- ")
+	for i in reversed(range(n)):
+		pic =r_pic.iloc[i]["Thumbnails"]
+		name = r_name.iloc[i]["Title"]
+		view =r_view.iloc[i]["Views"]
+		url= str(pic)
+		image_url = url 
+		# Fetch the image from the URL
+		response = requests.get(image_url)
+		image = Image.open(BytesIO(response.content))
+		cap = ("Views  :- %s" %view)
+		desired_size = (240, 180)
+		# Resize the image
+		resized_image = image.resize(desired_size)
+		if i%2 !=0:
+			with left:
+				st.write("Recommendation :- %s" %name)
+				st.image(resized_image, caption=cap)
+		else:
+			with right:
+				st.write("Recommendation :- %s" %name)
+				st.image(resized_image, caption=cap)
 	
 hide_default_format = """
        <style>
