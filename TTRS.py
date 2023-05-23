@@ -67,11 +67,11 @@ def get_video_details(youtube, video_ids):
     all_video_stats = []
     for i in range(0, len(video_ids), 50):
         request = youtube.videos().list(
-                    part='snippet,statistics,contentDetails',
+                    part='id,snippet,statistics,contentDetails',
                     id=','.join(video_ids[i:i+50]))
         response = request.execute()
         for video in response['items']:
-            video_stats = dict(Id = video['contentDetails']['videoId'],
+            video_stats = dict(Id = video['id'],
                                Title = video['snippet']['title'],
                                Published_date = video['snippet']['publishedAt'],
                                Description=video['snippet']['description'],
