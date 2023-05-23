@@ -269,7 +269,7 @@ def recommend_talks(talk_content,n, data=df):
 		resized_image = image.resize(desired_size)
 		st.write("%s" %name)
 		st.image(resized_image, caption=cap)
-		markdown_code = f"[![image]({resized_image})]({id_url})"
+		markdown_code = f"[![({rsized_image}]]({id_url})"
 		# Render the markdown
 		st.markdown(markdown_code, unsafe_allow_html=True)
 		
