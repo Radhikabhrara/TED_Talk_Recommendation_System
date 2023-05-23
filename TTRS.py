@@ -269,10 +269,12 @@ def recommend_talks(talk_content,n, data=df):
     recommended_data.sort_values(by=['Views'],ascending=False)
     r_pic = recommended_data[["Thumbnails"]]
     r_name = recommended_data[["Title"]]
+    r_view = recommended_dat[['Views']]
     st.subheader("Ted Talks you might like :- ")
     for i in range(n):
       pic =r_pic.iloc[i]["Thumbnails"]
       name = r_name.iloc[i]["Title"]
+      view =r_view.iloc[i]["Views"]
       #st.write("check out this [link](%s)" % url)
       
       st.write("Recommendation :- %s" %name)
@@ -282,14 +284,15 @@ def recommend_talks(talk_content,n, data=df):
       # Fetch the image from the URL
       response = requests.get(image_url)
       image = Image.open(BytesIO(response.content))
+      cap = ("Views  :- %s" %view)
 
       # Display the image in Streamlit
-      #st.image(image, caption='Image Caption', use_column_width=True)
+      #st.image(image, caption=cap, use_column_width=True)
       desired_size = (240, 180)
       # Resize the image
       resized_image = image.resize(desired_size)
       # Display the resized image
-      st.image(resized_image, caption='TED Talk Thumbnail')
+      st.image(resized_image, caption=cap)
 	
 hide_default_format = """
        <style>
@@ -300,7 +303,7 @@ hide_default_format = """
 st.markdown(hide_default_format, unsafe_allow_html=True)
 
 st.sidebar.header('\n Switch to Recommendation system :  👇')
-agree = st.checkbox('I agree')
+agree = st.sidebar.checkbox('I agree')
 
 if agree:
     st.subheader("Search for your TED talk here")
