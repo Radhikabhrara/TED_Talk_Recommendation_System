@@ -165,15 +165,15 @@ def det(x):
     except:
         language = 'Other'
     return language
-df['language'] = df['Description'].apply(det)
-df1=df
+df1=df=df[df['language']] = df['Description'].apply(det)
+
 
 filtered_for_english = df.loc[df['language'] == 'en']
 #df= np.where(df['language'] == 'en')
 df2 = df[df['language'] == 'en']
 
 
-df['details'] = df["Title"] + ' ' + df['Description']
+df3=df[df['details']] = df["Title"] + ' ' + df['Description']
 df.dropna(inplace = True)
 df3=df
 
