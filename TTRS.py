@@ -170,8 +170,8 @@ df1=df
 
 filtered_for_english = df.loc[df['language'] == 'en']
 #df= np.where(df['language'] == 'en')
-df = df[df['language'] == 'en']
-df2=df
+df2 = df[df['language'] == 'en']
+
 
 df['details'] = df["Title"] + ' ' + df['Description']
 df.dropna(inplace = True)
