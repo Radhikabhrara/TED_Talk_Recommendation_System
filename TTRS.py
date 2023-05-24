@@ -199,7 +199,7 @@ df5=df
 
 details_corpus = " ".join(df['details'])
 
-st.sidebar.title("MENU:")
+st.sidebar.title("Menu Bar:")
 st.sidebar.header('Steps involved in Processing the data : 👉')
 all_vizuals = ["Language Detection" ,"Filtering English language","Adding details & Removing the unnecessary information",
 	      "Removing stopwords","Cleaning punctuations"]
