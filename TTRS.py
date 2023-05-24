@@ -171,8 +171,9 @@ df1=df
 
 
 filtered_for_english = df.loc[df['language'] == 'en']
-#df= np.where(df['language'] == 'en')
-df2 = df =df[df['language'] == 'en']
+
+#df[df['language'] == 'en']
+df2 = df 
 
 
 df['details'] = df["Title"] + ' ' + df['Description']
@@ -191,7 +192,7 @@ def remove_stopwords(text):
   output = " ".join(imp_words)
   return output
 
-df['details'] = df['details'].apply(lambda text: remove_stopwords(text))
+d['details'] = df['details'].apply(lambda text: remove_stopwords(text))
 df4=df
 punctuations_list = string.punctuation
 def cleaning_punctuations(text):
