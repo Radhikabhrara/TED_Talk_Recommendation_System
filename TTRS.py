@@ -192,7 +192,7 @@ def process_data(df=df):
 	df['details'] = df['details'].apply(lambda x: cleaning_punctuations(x))
 	df5=df
 	details_corpus = " ".join(df['details'])
-	return df1 , df2 ,df3 ,df4 df5,details_corpus
+	return details_corpus
 	
 process_data(df)
 #df[df['language'] == 'en']
