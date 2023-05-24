@@ -222,6 +222,8 @@ if "Removing stopwords" in vizuals:
 	st.write(df4)
 if "Cleaning punctuations" in vizuals:
 	st.subheader("Cleaning punctuations")
+	df['details'] = df['details'].apply(lambda x: cleaning_punctuations(x))
+	df5=df
 	st.write(df5)
 
 st.text("Training Model.....")
