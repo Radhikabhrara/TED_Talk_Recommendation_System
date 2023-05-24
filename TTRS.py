@@ -156,6 +156,8 @@ n, m = df.shape
 st.write(f'<p style="font-size:130%">Dataset contains {n} rows and {m} columns.</p>', unsafe_allow_html=True)   
 st.dataframe(df)
 st.text("Processing data....")
+
+
 from langdetect import detect
 def det(x):
     try:
@@ -167,7 +169,8 @@ df['language'] = df['Description'].apply(det)
 df1=df
 
 filtered_for_english = df.loc[df['language'] == 'en']
-df = df[df['language'] == 'en']
+df= np.where(df['language'] == 'en')
+#df = df[df.loc[df['language'] == 'en']]
 df2=df
 
 df['details'] = df["Title"] + ' ' + df['Description']
