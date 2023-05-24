@@ -165,7 +165,9 @@ def det(x):
     except:
         language = 'Other'
     return language
-df1=df=df[df['language']] = df['Description'].apply(det)
+df['language'] = df['Description'].apply(det)
+
+df1=df
 
 
 filtered_for_english = df.loc[df['language'] == 'en']
