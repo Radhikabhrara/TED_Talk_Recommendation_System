@@ -169,8 +169,8 @@ df['language'] = df['Description'].apply(det)
 df1=df
 
 filtered_for_english = df.loc[df['language'] == 'en']
-df= np.where(df['language'] == 'en')
-#df = df[df.loc[df['language'] == 'en']]
+#df= np.where(df['language'] == 'en')
+df = df[df['language'] == 'en']
 df2=df
 
 df['details'] = df["Title"] + ' ' + df['Description']
