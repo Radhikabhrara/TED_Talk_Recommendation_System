@@ -156,45 +156,45 @@ n, m = df.shape
 st.write(f'<p style="font-size:130%">Dataset contains {n} rows and {m} columns.</p>', unsafe_allow_html=True)   
 st.dataframe(df)
 st.text("Processing data....")
-
-def process_data(df=df):
-	from langdetect import detect
-	def det(x):
-		try:
-			language = detect(x)
-		except:
-			language = 'Other'
-		return language
-	df['language'] = df['Description'].apply(det)
-	df1=df
-	filtered_for_english = df.loc[df['language'] == 'en']
-	df2 = df 
-	df['details'] = df["Title"] + ' ' + df['Description']
-	df.dropna(inplace = True)
-	df3=df
-	st.text("Few seconds away....")
-	def remove_stopwords(text):
-		stop_words = stopwords.words('english')
-		imp_words = []
-		# Storing the important words
-		for word in str(text).split():
-			word = word.lower()
-			if word not in stop_words:
-				imp_words.append(word)
-		output = " ".join(imp_words)
-		return output
-	df['details'] = df['details'].apply(lambda text: remove_stopwords(text))
-	df4=df
-	punctuations_list = string.punctuation
-	def cleaning_punctuations(text):
-		signal = str.maketrans('', '', punctuations_list)
-		return text.translate(signal)
-	df['details'] = df['details'].apply(lambda x: cleaning_punctuations(x))
-	df5=df
-	details_corpus = " ".join(df['details'])
-	return df1 , df2 , df3 , df4 , df5 , details_corpus
-	
-process_data(df)
+from langdetect import detect
+def det(x):
+	try:
+		language = detect(x)
+	except:
+		language = 'Other'
+	return language
+df['language'] = df['Description'].apply(det)
+st.write(df)
+df1=df
+filtered_for_english = df.loc[df['language'] == 'en']
+st.write(df)	
+df2 = df 
+df['details'] = df["Title"] + ' ' + df['Description']
+df.dropna(inplace = True)
+st.write(df)
+df3=df
+st.text("\n Few seconds away....")
+def remove_stopwords(text):
+	stop_words = stopwords.words('english')
+	imp_words = []
+	# Storing the important words
+	for word in str(text).split():
+		word = word.lower()
+		if word not in stop_words:
+			imp_words.append(word)
+	output = " ".join(imp_words)
+	return output
+df['details'] = df['details'].apply(lambda text: remove_stopwords(text))
+st.write(df)
+df4=df
+punctuations_list = string.punctuation
+def cleaning_punctuations(text):
+	signal = str.maketrans('', '', punctuations_list)
+	return text.translate(signal)
+df['details'] = df['details'].apply(lambda x: cleaning_punctuations(x))
+st.write(df)
+df5=df
+details_corpus = " ".join(df['details'])
 #df[df['language'] == 'en']
 
 st.sidebar.title("Menu Bar:")
