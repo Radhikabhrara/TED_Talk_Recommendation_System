@@ -183,7 +183,7 @@ def process_data(df=df):
 				imp_words.append(word)
 		output = " ".join(imp_words)
 		return output
-	d['details'] = df['details'].apply(lambda text: remove_stopwords(text))
+	df['details'] = df['details'].apply(lambda text: remove_stopwords(text))
 	df4=df
 	punctuations_list = string.punctuation
 	def cleaning_punctuations(text):
