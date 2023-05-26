@@ -165,17 +165,14 @@ def det(x):
 	return language
 df['language'] = df['Description'].apply(det)
 df1=df
-st.write(df1)
 
 filtered_for_english = df.loc[df['language'] == 'en']
 df=df[df['language'] == 'en']
 df2=df
-st.write(df2)	
  
 df['details'] = df["Title"] + ' ' + df['Description']
 df.dropna(inplace = True)
 df3=df
-st.write(df3)
 
 st.text("\n Few seconds away....")
 def remove_stopwords(text):
@@ -190,7 +187,6 @@ def remove_stopwords(text):
 	return output
 df['details'] = df['details'].apply(lambda text: remove_stopwords(text))
 df4=df
-st.write(df4)
 
 punctuations_list = string.punctuation
 def cleaning_punctuations(text):
@@ -198,7 +194,6 @@ def cleaning_punctuations(text):
 	return text.translate(signal)
 df['details'] = df['details'].apply(lambda x: cleaning_punctuations(x))
 df5=df
-st.write(df5)
 details_corpus = " ".join(df['details'])
 
 st.sidebar.title("Menu Bar:")
