@@ -35,7 +35,6 @@ def load_css(file_path):
 	
 load_css('style.css')
 def get_video_ids(youtube, playlist_id):
-    
     request = youtube.playlistItems().list(
                 part='contentDetails',
                 playlistId = playlist_id,
@@ -156,6 +155,7 @@ n, m = df.shape
 st.write(f'<p style="font-size:130%">Dataset contains {n} rows and {m} columns.</p>', unsafe_allow_html=True)   
 st.dataframe(df)
 st.text("Processing data....")
+
 from langdetect import detect
 def det(x):
 	try:
@@ -175,6 +175,7 @@ df.dropna(inplace = True)
 df3=df
 
 st.text("\n Few seconds away....")
+
 def remove_stopwords(text):
 	stop_words = stopwords.words('english')
 	imp_words = []
@@ -275,7 +276,7 @@ def recommend_talks(talk_content,n, data=df):
 		# Render the markdown
 		st.markdown(markdown_code, unsafe_allow_html=True)
 		st.text(cap)
-		st.write('               ')
+		st.write('\n \n ')
 
 hide_default_format = """
        <style>
