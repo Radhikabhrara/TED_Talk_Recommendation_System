@@ -209,19 +209,26 @@ all_vizuals = ["Language Detection" ,"Filtering English language","Adding detail
 vizuals = st.sidebar.multiselect("Choose which functionalities in processs you want to see 👇", all_vizuals)
 if "Language Detection" in vizuals:
 	st.subheader("Language Detection")
+	df1=data
+	df1['language'] = df1['Description'].apply(det)
 	st.write(df1)
 if "Filtering English language" in vizuals:
 	st.subheader("Filtering English language")
-	st.write(df2)
+	df1=df1[df1['language'] == 'en']
+	st.write(df1)
 if "Adding details & Removing the unnecessary information" in vizuals:
 	st.subheader("Adding details & Removing the unnecessary information")
-	st.write(df3)
+	df1['details'] = df1["Title"] + ' ' + df1['Description']
+	df1.dropna(inplace = True)
+	st.write(df1)
 if "Removing stopwords" in vizuals:
 	st.subheader("Removing stopwords")
-	st.write(df4)
+	df1['details'] = df1['details'].apply(lambda text: remove_stopwords(text))
+	st.write(df1)
 if "Cleaning punctuations" in vizuals:
 	st.subheader("Cleaning punctuations")
-	st.write(df5)
+	df1['details'] = df1['details'].apply(lambda x: cleaning_punctuations(x))
+	st.write(df1)
 
 st.text("Training Model.....")
 vectorizer = TfidfVectorizer(analyzer = 'word')
