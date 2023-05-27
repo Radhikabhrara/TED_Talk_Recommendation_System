@@ -198,7 +198,7 @@ if rad=="Selecting the dataset :":
 	st.subheader("TED Talks Channel Data:")
 	st.write(channel_data)
 	st.sidebar.header('Check distribution in youtube Channels data : 👉')
-	all_vizuals = ["Subscribers Distribution" ,"Views Distibution"]
+	all_vizuals = ["Subscribers Distribution" ,"Views Distribution"]
 	       
 	vizuals = st.sidebar.multiselect("Choose visualizations 👇", all_vizuals)
 	if "Subscribers Distribution" in vizuals:
