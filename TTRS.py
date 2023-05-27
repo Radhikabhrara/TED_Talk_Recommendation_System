@@ -133,9 +133,6 @@ punctuations_list = string.punctuation
 def cleaning_punctuations(text):
 	signal = str.maketrans('', '', punctuations_list)
 	return text.translate(signal)
-df['details'] = df['details'].apply(lambda x: cleaning_punctuations(x))
-df5=df
-details_corpus = " ".join(df['details'])
 
 def get_similarities(talk_content, data=df):
 	# Getting vector for the input talk_content.
