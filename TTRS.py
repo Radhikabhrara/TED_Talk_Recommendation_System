@@ -29,9 +29,7 @@ im = Image.open('logo.png')
 # Adding Image to web app
 st.set_page_config(page_title="Radhika_1917631", page_icon = im ,layout="wide",initial_sidebar_state="auto",
 		   menu_items={'About': 'https://www.linkedin.com/in/radhika-bhrara/'})
-
-#st.title("TED Talks Recommendation System")
-st.markdown("<h1 style='text-align: center; color: red;'>TED Talks Recommendation System</h1>", unsafe_allow_html=True)
+st.title("TED Talks Recommendation System")
 
 hide_default_format = """
        <style>
