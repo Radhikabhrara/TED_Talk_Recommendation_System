@@ -24,10 +24,10 @@ warnings.filterwarnings('ignore')
 
 from PIL import Image
 # Loading Image using PIL
-im = Image.open('ilogo.png')
+im = Image.open('logo.png')
 
 # Adding Image to web app
-st.set_page_config(page_title="Radhika_1917631", page_icon = ':bar_chart:' ,layout="wide")
+st.set_page_config(page_title="Radhika_1917631", page_icon = im ,layout="wide")
 st.title("TED Talks Recommendation System")
 
 def load_css(file_path):
