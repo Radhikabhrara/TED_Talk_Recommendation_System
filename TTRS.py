@@ -184,7 +184,7 @@ def recommend_talks(talk_content,n, data):
 
 
 st.sidebar.title("Menu Bar:")
-rad=st.sidebar.radio("Navigation👉",["Home","Selecting the dataset :",'Switch to Recommendation system : '])
+rad=st.sidebar.radio("Navigation👉",["Home","Selecting the dataset :"])
 if rad=="Home":
   st.header('Project submission ')
   st.subheader('Radhika --1917631')
