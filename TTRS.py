@@ -198,10 +198,10 @@ if rad=="Selecting the dataset :":
 	st.subheader("TED Talks Channel Data:")
 	st.write(channel_data)
 	st.sidebar.header('Check distribution in youtube Channels data : 👉')
-	all_vizuals = ["Subscribers Distribution " ,"Views Distibution"]
+	all_vizuals = ["Subscribers Distribution" ,"Views Distibution"]
 	       
 	vizuals = st.sidebar.multiselect("Choose visualizations 👇", all_vizuals)
-	if "Subscribers Distribution " in vizuals:
+	if "Subscribers Distribution" in vizuals:
 		fig = px.bar(channel_data, x='Channel_name',  y='Subscribers', color="Channel_name" ,hover_name="Total_videos",template="plotly_dark")
 		fig.update_layout(title='Subscribers on the videos among TED TAlk Channels:')
 		tab1, tab2 = st.tabs(["Streamlit theme (default)", "Plotly native theme"])
@@ -212,7 +212,7 @@ if rad=="Selecting the dataset :":
 		with tab2:
 			# Use the native Plotly theme.
 			st.plotly_chart(fig, theme=None, use_container_width=True)
-	if "Views Distribution " in vizuals:
+	if "Views Distribution" in vizuals:
 		fig = px.bar(channel_data, x='Channel_name', y='Views', color="Channel_name" ,hover_name="Total_videos")
 		fig.update_layout(title='Views Distribution among TED TAlk Channels:')
 		tab1, tab2 = st.tabs(["Streamlit theme (default)", "Plotly native theme"])
@@ -224,6 +224,7 @@ if rad=="Selecting the dataset :":
 			# Use the native Plotly theme.
 			st.plotly_chart(fig, theme=None,template="plotly_dark", use_container_width=True)
 	st.write('<p style="font-size:130%">Select TED talk Channel</p>', unsafe_allow_html=True)
+	
 	file_data = st.radio('Channels List:', ('Use Demo Dataset','TEDx Talks', 'TED-Ed','TEDxYouth','TED' ,'TED Ideas Studio','TED Archive'))
 	st.write('<p style="font-size:130%">Importing Real-time data through Youtube.</p>', unsafe_allow_html=True)
 	if file_data == 'Use Demo Dataset':
