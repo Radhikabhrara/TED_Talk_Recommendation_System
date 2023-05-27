@@ -191,7 +191,7 @@ if rad=="Home":
 	st.header('\n\n\nProject submission ')
 	st.subheader('Radhika --1917631')
 
-if rad=="Selecting the dataset :":
+if rad=="Select the dataset :":
 	channel_statistics = get_channel_stats(youtube, channel_ids)
 	channel_data = pd.DataFrame(channel_statistics)
 	channel_data['Views'] = pd.to_numeric(channel_data['Views'])
