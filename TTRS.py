@@ -24,7 +24,7 @@ warnings.filterwarnings('ignore')
 
 from PIL import Image
 # Loading Image using PIL
-im = Image.open('rlogo.png')
+im = Image.open('logo.png')
 
 # Adding Image to web app
 st.set_page_config(page_title="Radhika_1917631", page_icon = im ,layout="wide")
