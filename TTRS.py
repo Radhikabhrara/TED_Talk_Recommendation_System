@@ -110,55 +110,6 @@ def get_channel_stats(youtube, channel_ids):
         all_data.append(data)
     return all_data
 
-channel_statistics = get_channel_stats(youtube, channel_ids)
-channel_data = pd.DataFrame(channel_statistics)
-channel_data['Views'] = pd.to_numeric(channel_data['Views'])
-channel_data['Subscribers'] = pd.to_numeric(channel_data['Subscribers'])
-channel_data['Total_videos'] = pd.to_numeric(channel_data['Total_videos'])
-st.subheader("TED Talks Channel Data:")
-st.write(channel_data)
-fig = px.bar(channel_data, x='Channel_name', y='Subscribers', color="Channel_name" ,hover_name="Total_videos")
-fig.update_layout(title='Subscribers Distribution among TED TAlk Channels:')
-tab1, tab2 = st.tabs(["Streamlit theme (default)", "Plotly native theme"])
-with tab1:
-    # Use the Streamlit theme.
-    st.plotly_chart(fig, theme="streamlit", use_container_width=True)
-with tab2:
-    # Use the native Plotly theme.
-    st.plotly_chart(fig, theme=None, use_container_width=True)
-	
-fig = px.bar(channel_data, x='Channel_name', y='Views', color="Channel_name" ,hover_name="Total_videos",template="plotly_dark")
-fig.update_layout(title='Views on the videos among TED TAlk Channels:')
-tab1, tab2 = st.tabs(["Streamlit theme (default)", "Plotly native theme"])
-with tab1:
-    st.plotly_chart(fig, theme="streamlit", use_container_width=True)
-with tab2:
-    st.plotly_chart(fig, theme=None,template="plotly_dark", use_container_width=True)
-
-st.write('<p style="font-size:130%">Select TED talk Channel</p>', unsafe_allow_html=True)
-file_data = st.radio('Channels List:', ('Use Demo Dataset','TEDx Talks', 'TED-Ed','TEDxYouth','TED' ,'TED Ideas Studio','TED Archive'))
-st.write('<p style="font-size:130%">Importing Real-time data through Youtube.</p>', unsafe_allow_html=True)
-
-if file_data == 'Use Demo Dataset':
-	data = 'TED_TALKS_DATA.csv' 
-else :
-	playlist_id = channel_data.loc[channel_data['Channel_name']==file_data, 'playlist_id'].iloc[0]
-	video_ids = get_video_ids(youtube, playlist_id)
-	video_details = get_video_details(youtube, video_ids)
-	video_data = pd.DataFrame(video_details)
-	video_data['Published_date'] = pd.to_datetime(video_data['Published_date']).dt.date
-	video_data['Views'] = pd.to_numeric(video_data['Views'])
-	video_data.to_csv('TED_DATA.csv')
-	data= 'TED_DATA.csv'
-	
-df = pd.read_csv(data)
-data=df
-st.subheader('Dataframe:')
-n, m = df.shape
-st.write(f'<p style="font-size:130%">Dataset contains {n} rows and {m} columns.</p>', unsafe_allow_html=True)   
-st.dataframe(df)
-st.text("Processing data....")
-
 from langdetect import detect
 def det(x):
 	try:
@@ -166,18 +117,6 @@ def det(x):
 	except:
 		language = 'Other'
 	return language
-df['language'] = df['Description'].apply(det)
-df1=df
-
-filtered_for_english = df.loc[df['language'] == 'en']
-df=df[df['language'] == 'en']
-df2=df
- 
-df['details'] = df["Title"] + ' ' + df['Description']
-df.dropna(inplace = True)
-df3=df
-
-st.text("\n Few seconds away....")
 
 def remove_stopwords(text):
 	stop_words = stopwords.words('english')
@@ -189,8 +128,6 @@ def remove_stopwords(text):
 			imp_words.append(word)
 	output = " ".join(imp_words)
 	return output
-df['details'] = df['details'].apply(lambda text: remove_stopwords(text))
-df4=df
 
 punctuations_list = string.punctuation
 def cleaning_punctuations(text):
@@ -199,45 +136,6 @@ def cleaning_punctuations(text):
 df['details'] = df['details'].apply(lambda x: cleaning_punctuations(x))
 df5=df
 details_corpus = " ".join(df['details'])
-st.write(df1)
-st.write(df2)
-st.write(df3)
-st.write(df4)
-st.write(df5)
-
-
-st.sidebar.title("Menu Bar:")
-st.sidebar.header('Steps involved in Processing the data : 👉')
-all_vizuals = ["Language Detection" ,"Filtering English language","Adding details & Removing the unnecessary information",
-	      "Removing stopwords","Cleaning punctuations"]
-#sidebar_space(3)         
-vizuals = st.sidebar.multiselect("Choose which functionalities in processs you want to see 👇", all_vizuals)
-if "Language Detection" in vizuals:
-	st.subheader("Language Detection")
-	df1=data
-	df1['language'] = df1['Description'].apply(det)
-	st.write(df1)
-if "Filtering English language" in vizuals:
-	st.subheader("Filtering English language")
-	df1=df1[df1['language'] == 'en']
-	st.write(df1)
-if "Adding details & Removing the unnecessary information" in vizuals:
-	st.subheader("Adding details & Removing the unnecessary information")
-	df1['details'] = df1["Title"] + ' ' + df1['Description']
-	df1.dropna(inplace = True)
-	st.write(df1)
-if "Removing stopwords" in vizuals:
-	st.subheader("Removing stopwords")
-	df1['details'] = df1['details'].apply(lambda text: remove_stopwords(text))
-	st.write(df1)
-if "Cleaning punctuations" in vizuals:
-	st.subheader("Cleaning punctuations")
-	df1['details'] = df1['details'].apply(lambda x: cleaning_punctuations(x))
-	st.write(df1)
-
-st.text("Training Model.....")
-vectorizer = TfidfVectorizer(analyzer = 'word')
-vectorizer.fit(df['details'])
 
 def get_similarities(talk_content, data=df):
 	# Getting vector for the input talk_content.
@@ -287,6 +185,112 @@ def recommend_talks(talk_content,n, data=df):
 		st.text(cap)
 		st.write('\n \n ')
 
+
+st.sidebar.title("Menu Bar:")
+rad=st.sidebar.radio("Navigation👉",["Home","Selecting the dataset :",'Processing the dataset : ','Switch to Recommendation system : '])
+if rad=="Home":
+  st.header('Project submission ')
+  st.subheader('Radhika --1917631')
+
+if rad=="Selecting the dataset :":
+	channel_statistics = get_channel_stats(youtube, channel_ids)
+	channel_data = pd.DataFrame(channel_statistics)
+	channel_data['Views'] = pd.to_numeric(channel_data['Views'])
+	channel_data['Subscribers'] = pd.to_numeric(channel_data['Subscribers'])
+	channel_data['Total_videos'] = pd.to_numeric(channel_data['Total_videos'])
+	st.subheader("TED Talks Channel Data:")
+	st.write(channel_data)
+	st.sidebar.header('Check distribution in youtube Channels data : 👉')
+	all_vizuals = ["Subscribers Distribution " ,"Views Distibution"]
+	sidebar_space(3)         
+	vizuals = st.sidebar.multiselect("Choose visualizations 👇", all_vizuals)
+	if "Subscribers Distribution " in vizuals:
+		fig = px.bar(channel_data, x='Channel_name', y='Views', color="Channel_name" ,hover_name="Total_videos",template="plotly_dark")
+		fig.update_layout(title='Views on the videos among TED TAlk Channels:')
+		tab1, tab2 = st.tabs(["Streamlit theme (default)", "Plotly native theme"])
+		with tab1:
+			# Use the Streamlit theme.
+			st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+
+		with tab2:
+			# Use the native Plotly theme.
+			st.plotly_chart(fig, theme=None, use_container_width=True)
+	if "Views Distribution " in vizuals:
+		fig = px.bar(channel_data, x='Channel_name', y='Subscribers', color="Channel_name" ,hover_name="Total_videos")
+		fig.update_layout(title='Subscribers Distribution among TED TAlk Channels:')
+		tab1, tab2 = st.tabs(["Streamlit theme (default)", "Plotly native theme"])
+		with tab1:
+			# Use the Streamlit theme.
+			st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+
+		with tab2:
+			# Use the native Plotly theme.
+			st.plotly_chart(fig, theme=None,template="plotly_dark", use_container_width=True)
+	st.write('<p style="font-size:130%">Select TED talk Channel</p>', unsafe_allow_html=True)
+	file_data = st.radio('Channels List:', ('Use Demo Dataset','TEDx Talks', 'TED-Ed','TEDxYouth','TED' ,'TED Ideas Studio','TED Archive'))
+	st.write('<p style="font-size:130%">Importing Real-time data through Youtube.</p>', unsafe_allow_html=True)
+	if file_data == 'Use Demo Dataset':
+		data = 'TED_TALKS_DATA.csv' 
+	else :
+		playlist_id = channel_data.loc[channel_data['Channel_name']==file_data, 'playlist_id'].iloc[0]
+		video_ids = get_video_ids(youtube, playlist_id)
+		video_details = get_video_details(youtube, video_ids)
+		video_data = pd.DataFrame(video_details)
+		video_data['Published_date'] = pd.to_datetime(video_data['Published_date']).dt.date
+		video_data['Views'] = pd.to_numeric(video_data['Views'])
+		video_data.to_csv('TED_DATA.csv')
+		data= 'TED_DATA.csv'
+		df = pd.read_csv(data)
+		data=df
+		st.subheader('\n Dataframe:')
+		n, m = df.shape
+		st.write(f'<p style="font-size:130%">Dataset contains {n} rows and {m} columns.</p>', unsafe_allow_html=True)   
+		st.dataframe(df)
+		
+		st.text("Processing data....")
+
+if rad=="Processing the dataset : ":
+	df['language'] = df['Description'].apply(det)
+	df1=df
+	st.subheader("Language Detection:")
+	st.write(df1)
+	
+	st.subheader("Filtering English Language:")
+	filtered_for_english = df.loc[df['language'] == 'en']
+	df=df[df['language'] == 'en']
+	df2=df
+	st.write(df2)
+	
+	st.subheader("Adding Details attribute for natural language processsing: ")
+	df['details'] = df["Title"] + ' ' + df['Description']
+	df.dropna(inplace = True)
+	df3=df
+	st.write(df3)
+	
+	df['details'] = df['details'].apply(lambda text: remove_stopwords(text))
+	st.text("\n Few seconds away....")
+	st.subheader("Removing stopwords :")
+	df4=df["details"]
+	st.write(df4)
+	
+	df['details'] = df['details'].apply(lambda x: cleaning_punctuations(x))
+	st.subheader("Cleaning details by removing puctuations :")
+	df5=df["details"]
+	st.write(df5)
+	
+	details_corpus = " ".join(df['details'])
+
+	st.text("Training Model.....")
+	vectorizer = TfidfVectorizer(analyzer = 'word')
+	vectorizer.fit(df['details'])
+
+if rad=='Switch to Recommendation system : ':
+	st.subheader("Search for your TED talk here")
+	talk_content = [st.text_input(' Enter your Ted Talk keywords : ', "Life")]
+	n = st.number_input(' Enter number of recommendations you want ', 6)
+	recommend_talks(talk_content , n)
+	
+
 hide_default_format = """
        <style>
        #MainMenu {visibility: hidden; }
@@ -295,11 +299,7 @@ hide_default_format = """
        """
 st.markdown(hide_default_format, unsafe_allow_html=True)
 
-st.sidebar.header('\n Switch to Recommendation system :  👇')
-agree = st.sidebar.checkbox('I agree')
-if agree:
-    st.subheader("Search for your TED talk here")
-    talk_content = [st.text_input(' Enter your Ted Talk keywords : ', "Life")]
-    n = st.number_input(' Enter number of recommendations you want ', 6)
-    recommend_talks(talk_content , n)
+#st.sidebar.header('\n Switch to Recommendation system :  👇')
+#agree = st.sidebar.checkbox('I agree')
+
     
