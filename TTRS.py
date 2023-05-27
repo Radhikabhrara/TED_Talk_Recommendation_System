@@ -184,7 +184,7 @@ def recommend_talks(talk_content,n, data):
 
 
 st.sidebar.title("Menu Bar:")
-rad=st.sidebar.radio("Navigation👉",["Home","Selecting the dataset :",'Processing the dataset : ','Switch to Recommendation system : '])
+rad=st.sidebar.radio("Navigation👉",["Home","Selecting the dataset :",'Switch to Recommendation system : '])
 if rad=="Home":
   st.header('Project submission ')
   st.subheader('Radhika --1917631')
@@ -246,8 +246,9 @@ if rad=="Selecting the dataset :":
 	st.dataframe(df)
 		
 	st.text("Processing data....")
+	
+	st.sidebar.header("Processing the dataset 👉":)
 
-if rad=="Processing the dataset : ":
 	df['language'] = df['Description'].apply(det)
 	df1=df
 	st.subheader("Language Detection:")
