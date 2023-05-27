@@ -202,8 +202,8 @@ if rad=="Selecting the dataset :":
 	       
 	vizuals = st.sidebar.multiselect("Choose visualizations 👇", all_vizuals)
 	if "Subscribers Distribution " in vizuals:
-		fig = px.bar(channel_data, x='Channel_name', y='Views', color="Channel_name" ,hover_name="Total_videos",template="plotly_dark")
-		fig.update_layout(title='Views on the videos among TED TAlk Channels:')
+		fig = px.bar(channel_data, x='Channel_name',  y='Subscribers', color="Channel_name" ,hover_name="Total_videos",template="plotly_dark")
+		fig.update_layout(title='Subscribers on the videos among TED TAlk Channels:')
 		tab1, tab2 = st.tabs(["Streamlit theme (default)", "Plotly native theme"])
 		with tab1:
 			# Use the Streamlit theme.
@@ -213,8 +213,8 @@ if rad=="Selecting the dataset :":
 			# Use the native Plotly theme.
 			st.plotly_chart(fig, theme=None, use_container_width=True)
 	if "Views Distribution " in vizuals:
-		fig = px.bar(channel_data, x='Channel_name', y='Subscribers', color="Channel_name" ,hover_name="Total_videos")
-		fig.update_layout(title='Subscribers Distribution among TED TAlk Channels:')
+		fig = px.bar(channel_data, x='Channel_name', y='Views', color="Channel_name" ,hover_name="Total_videos")
+		fig.update_layout(title='Views Distribution among TED TAlk Channels:')
 		tab1, tab2 = st.tabs(["Streamlit theme (default)", "Plotly native theme"])
 		with tab1:
 			# Use the Streamlit theme.
