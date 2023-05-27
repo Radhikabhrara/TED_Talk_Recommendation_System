@@ -185,8 +185,7 @@ def recommend_talks(talk_content,n, data):
 st.sidebar.title("Menu Bar:")
 rad=st.sidebar.radio("Navigation👉",["Home","Selecting the dataset :"])
 if rad=="Home":
-	from PIL import Image
-	image = Image.open('TED.gif')
+	image = 'TED.gif'
 	st.image(image, caption='Made by Radhika')
 	st.header('\n\n\nProject submission ')
 	st.subheader('Radhika --1917631')
