@@ -279,8 +279,9 @@ if rad=="Selecting the dataset :":
 	st.write(df5)
 	
 	details_corpus = " ".join(df['details'])
-	genre = st.radio("Visual Representation of Content in TED Channel",("Word Cloud of the TED Talk details"))
-	if genre == 'Word Cloud of the TED Talk details':
+	genre = st.radio("Visual Representation of Content in TED Channel",
+			 ("WordCloud"))
+	if genre == 'WordCloud':
 		st.subheader('Word Cloud of the TED Talk details')
 		plt.figure(figsize=(20, 20))
 		wc = WordCloud(max_words=1000, width=800, height=400).generate(details_corpus)
