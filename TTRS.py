@@ -283,7 +283,7 @@ if rad=="Select the dataset :":
 	genre = st.sidebar.radio("Choose Visual :",["WordCloud"])
 	if genre == 'WordCloud':
 		st.subheader('Word Cloud of the TED Talk details')
-		wordcloud = WordCloud().generate(details_corpus)
+		wordcloud = WordCloud(max_words=1000).generate(details_corpus)
 		plt.figure(figsize=(20, 20))
 		fig, ax = plt.subplots()
 		ax.imshow(wordcloud, interpolation='bilinear')
