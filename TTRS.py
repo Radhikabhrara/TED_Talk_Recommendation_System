@@ -186,6 +186,7 @@ st.sidebar.title("Menu Bar:")
 rad=st.sidebar.radio("Navigation👉",["Home","Selecting the dataset :"])
 if rad=="Home":
 	image = 'TED.gif'
+	st.markdown(f'<style>div.stButton > button:first-child {{ display: block; margin: 0 auto; }}</style>',unsafe_allow_html=True)
 	st.image(image, caption='Made by Radhika')
 	st.header('\n\n\nProject submission ')
 	st.subheader('Radhika --1917631')
