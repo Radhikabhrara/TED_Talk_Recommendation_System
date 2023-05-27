@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 import pandas as pd
 import numpy as np
 import plotly.express as px
@@ -21,14 +22,12 @@ from sklearn.metrics.pairwise import cosine_similarity
 nltk.download('stopwords')
 warnings.filterwarnings('ignore')
 
-
-st.title("TED Talks Recommendation System")
 from PIL import Image
 # Loading Image using PIL
 im = Image.open('ilogo.png')
 # Adding Image to web app
-st.set_page_config(page_title="Radhika_1917631", page_icon = "ilogo.png",layout="wide")
-import streamlit.components.v1 as components
+st.set_page_config(page_title="Radhika_1917631", page_icon = im)
+st.title("TED Talks Recommendation System")
 
 def load_css(file_path):
     with open(file_path) as f:
