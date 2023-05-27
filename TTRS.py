@@ -39,11 +39,6 @@ hide_default_format = """
        """
 st.markdown(hide_default_format, unsafe_allow_html=True)
 
-def load_css(file_path):
-    with open(file_path) as f:
-        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
-	
-load_css('style.css')
 def get_video_ids(youtube, playlist_id):
     request = youtube.playlistItems().list(
                 part='contentDetails',
