@@ -21,12 +21,13 @@ from sklearn.metrics.pairwise import cosine_similarity
 nltk.download('stopwords')
 warnings.filterwarnings('ignore')
 
+
+st.title("TED Talks Recommendation System")
 from PIL import Image
 # Loading Image using PIL
 im = Image.open('ilogo.png')
 # Adding Image to web app
-st.set_page_config(page_title="Radhika_1917631", page_icon = im,layout="wide",)
-st.title("TED Talks Recommendation System")
+st.set_page_config(page_title="Radhika_1917631", page_icon = im,layout="wide")
 import streamlit.components.v1 as components
 
 def load_css(file_path):
@@ -196,6 +197,12 @@ def cleaning_punctuations(text):
 df['details'] = df['details'].apply(lambda x: cleaning_punctuations(x))
 df5=df
 details_corpus = " ".join(df['details'])
+st.write(df1)
+st.write(df2)
+st.write(df3)
+st.write(df4)
+st.write(df5)
+
 
 st.sidebar.title("Menu Bar:")
 st.sidebar.header('Steps involved in Processing the data : 👉')
