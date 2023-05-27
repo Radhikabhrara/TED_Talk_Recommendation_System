@@ -238,14 +238,14 @@ if rad=="Selecting the dataset :":
 		video_data['Views'] = pd.to_numeric(video_data['Views'])
 		video_data.to_csv('TED_DATA.csv')
 		data= 'TED_DATA.csv'
-		df = pd.read_csv(data)
-		data=df
-		st.subheader('\n Dataframe:')
-		n, m = df.shape
-		st.write(f'<p style="font-size:130%">Dataset contains {n} rows and {m} columns.</p>', unsafe_allow_html=True)   
-		st.dataframe(df)
+	df = pd.read_csv(data)
+	data=df
+	st.subheader('\n Dataframe:')
+	n, m = df.shape
+	st.write(f'<p style="font-size:130%">Dataset contains {n} rows and {m} columns.</p>', unsafe_allow_html=True)   
+	st.dataframe(df)
 		
-		st.text("Processing data....")
+	st.text("Processing data....")
 
 if rad=="Processing the dataset : ":
 	df['language'] = df['Description'].apply(det)
