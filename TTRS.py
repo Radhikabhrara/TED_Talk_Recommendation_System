@@ -199,7 +199,7 @@ if rad=="Selecting the dataset :":
 	st.write(channel_data)
 	st.sidebar.header('Check distribution in youtube Channels data : 👉')
 	all_vizuals = ["Subscribers Distribution " ,"Views Distibution"]
-	sidebar_space(3)         
+	       
 	vizuals = st.sidebar.multiselect("Choose visualizations 👇", all_vizuals)
 	if "Subscribers Distribution " in vizuals:
 		fig = px.bar(channel_data, x='Channel_name', y='Views', color="Channel_name" ,hover_name="Total_videos",template="plotly_dark")
