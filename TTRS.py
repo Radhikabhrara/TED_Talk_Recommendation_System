@@ -31,7 +31,7 @@ st.set_page_config(page_title="Radhika_1917631", page_icon = im ,layout="wide",i
 		   menu_items={'About': 'https://www.linkedin.com/in/radhika-bhrara/'})
 
 #st.title("TED Talks Recommendation System")
-st.markdown("<h1 style='text-align: center; color: red;'>TED Talks Recommendation System</h1>', unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: red;'>TED Talks Recommendation System</h1>", unsafe_allow_html=True)
 
 hide_default_format = """
        <style>
