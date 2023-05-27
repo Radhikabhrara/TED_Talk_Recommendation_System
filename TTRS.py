@@ -15,7 +15,7 @@ import string
 import warnings
 from scipy.stats import pearsonr
 from nltk.corpus import stopwords
-#from wordcloud import WordCloud
+from wordcloud import WordCloud
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
  
@@ -278,6 +278,13 @@ if rad=="Selecting the dataset :":
 	st.write(df5)
 	
 	details_corpus = " ".join(df['details'])
+	genre = st.radio("Word Cloud of the TED Talk details")
+	if genre == 'Word Cloud of the TED Talk details':
+		st.subheader('Word Cloud of the TED Talk details')
+		plt.figure(figsize=(20, 20))
+		wc = WordCloud(max_words=1000, width=800, height=400).generate(details_corpus)
+		plt.axis('off')
+		st.plt(wc)
 
 	st.text("Training Model.....")
 	vectorizer = TfidfVectorizer(analyzer = 'word')
