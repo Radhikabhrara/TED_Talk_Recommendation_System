@@ -31,6 +31,13 @@ st.set_page_config(page_title="Radhika_1917631", page_icon = im ,layout="wide",i
 		   menu_items={'About': 'https://www.linkedin.com/in/radhika-bhrara/'})
 
 st.title("TED Talks Recommendation System")
+hide_default_format = """
+       <style>
+       #MainMenu {visibility: hidden; }
+       footer {visibility: hidden;}
+       </style>
+       """
+st.markdown(hide_default_format, unsafe_allow_html=True)
 
 def load_css(file_path):
     with open(file_path) as f:
@@ -172,16 +179,13 @@ def recommend_talks(talk_content,n, data):
 		cap = "Views  :- %s" %view
 		desired_size = (360, 270)
 		st.write("%s" %name)
-		#response = requests.get(image_url)
-		#image = Image.open(BytesIO(response.content))
-		#st.image(image_url,caption=cap ,width=360)
-		# Generate the markdown code with the embedded URL
+
 		markdown_code = f"[![image]({image_url})]({id_url})"
 		# Render the markdown
 		st.markdown(markdown_code, unsafe_allow_html=True)
-		st.text(cap)
-		st.write('\n \n ')
-
+		st.caption(cap)
+		#st.text(cap)
+		st.write('\n \n \n ')
 
 st.sidebar.title("Menu Bar:")
 rad=st.sidebar.radio("Navigation👉",["Home","Selecting the dataset :"])
@@ -246,7 +250,6 @@ if rad=="Selecting the dataset :":
 	st.dataframe(df)
 		
 	st.header("Pre-processing data....")
-	
 	st.sidebar.header("Pre-processing the dataset :👉")
 
 	df['language'] = df['Description'].apply(det)
@@ -292,14 +295,3 @@ if rad=="Selecting the dataset :":
 		n = st.number_input(' Enter number of recommendations you want ', 6)
 		recommend_talks(talk_content , n ,df)
 	
-
-hide_default_format = """
-       <style>
-       #MainMenu {visibility: hidden; }
-       footer {visibility: hidden;}
-       </style>
-       """
-st.markdown(hide_default_format, unsafe_allow_html=True)
-
-
-    
