@@ -134,7 +134,7 @@ def cleaning_punctuations(text):
 	signal = str.maketrans('', '', punctuations_list)
 	return text.translate(signal)
 
-def get_similarities(talk_content, data=df):
+def get_similarities(talk_content, data):
 	# Getting vector for the input talk_content.
 	talk_array1 = vectorizer.transform(talk_content).toarray()
 	# We will store similarity for each row of the dataset.
@@ -149,8 +149,8 @@ def get_similarities(talk_content, data=df):
 		sim.append(cos_sim)
 	return sim 
 
-def recommend_talks(talk_content,n, data=df):
-	df['cos_sim'] = get_similarities(talk_content)
+def recommend_talks(talk_content,n, data):
+	df['cos_sim'] = get_similarities(talk_content,data)
 	df.sort_values(by='cos_sim', ascending= False, inplace=True)
 	recommended_data = df.head(n)
 	recommended_data['Views'] = pd.to_numeric(recommended_data['Views'])
@@ -285,7 +285,7 @@ if rad=='Switch to Recommendation system : ':
 	st.subheader("Search for your TED talk here")
 	talk_content = [st.text_input(' Enter your Ted Talk keywords : ', "Life")]
 	n = st.number_input(' Enter number of recommendations you want ', 6)
-	recommend_talks(talk_content , n)
+	recommend_talks(talk_content , n ,df)
 	
 
 hide_default_format = """
