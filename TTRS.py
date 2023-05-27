@@ -245,9 +245,9 @@ if rad=="Selecting the dataset :":
 	st.write(f'<p style="font-size:130%">Dataset contains {n} rows and {m} columns.</p>', unsafe_allow_html=True)   
 	st.dataframe(df)
 		
-	st.text("Processing data....")
+	st.header("Pre-processing data....")
 	
-	st.sidebar.header("Processing the dataset 👉":)
+	st.sidebar.header("Pre-processing the dataset :👉")
 
 	df['language'] = df['Description'].apply(det)
 	df1=df
@@ -282,12 +282,15 @@ if rad=="Selecting the dataset :":
 	st.text("Training Model.....")
 	vectorizer = TfidfVectorizer(analyzer = 'word')
 	vectorizer.fit(df['details'])
-
-if rad=='Switch to Recommendation system : ':
-	st.subheader("Search for your TED talk here")
-	talk_content = [st.text_input(' Enter your Ted Talk keywords : ', "Life")]
-	n = st.number_input(' Enter number of recommendations you want ', 6)
-	recommend_talks(talk_content , n ,df)
+	
+	st.sidebar.header('\n Switch to Recommendation system :  👇')
+	agree = st.sidebar.checkbox('I agree')
+	if agree:
+		st.header("Recommendation System:")
+		st.subheader("Search for your TED talk here")
+		talk_content = [st.text_input(' Enter your Ted Talk keywords : ', "Life")]
+		n = st.number_input(' Enter number of recommendations you want ', 6)
+		recommend_talks(talk_content , n ,df)
 	
 
 hide_default_format = """
@@ -298,7 +301,5 @@ hide_default_format = """
        """
 st.markdown(hide_default_format, unsafe_allow_html=True)
 
-#st.sidebar.header('\n Switch to Recommendation system :  👇')
-#agree = st.sidebar.checkbox('I agree')
 
     
