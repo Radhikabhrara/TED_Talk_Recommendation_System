@@ -190,8 +190,11 @@ def recommend_talks(talk_content,n, data):
 st.sidebar.title("Menu Bar:")
 rad=st.sidebar.radio("Navigation👉",["Home","Selecting the dataset :"])
 if rad=="Home":
-  st.header('Project submission ')
-  st.subheader('Radhika --1917631')
+	from PIL import Image
+	image = Image.open('TED.gif')
+	st.image(image, caption='Made by Radhika')
+	st.header('\n\n\nProject submission ')
+	st.subheader('Radhika --1917631')
 
 if rad=="Selecting the dataset :":
 	channel_statistics = get_channel_stats(youtube, channel_ids)
