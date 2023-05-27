@@ -184,7 +184,7 @@ def recommend_talks(talk_content,n, data):
 		st.write('\n \n \n ')
 
 st.sidebar.title("Menu Bar:")
-rad=st.sidebar.radio("Navigation👉",["Home","Selecting the dataset :"])
+rad=st.sidebar.radio("Navigation👉",["Home","Select the dataset :"])
 if rad=="Home":
 	image = 'TED.gif'
 	st.image(image, caption='TED TALKS ')
@@ -279,8 +279,8 @@ if rad=="Selecting the dataset :":
 	st.write(df5)
 	
 	details_corpus = " ".join(df['details'])
-	genre = st.radio("Visual Representation of Content in TED Channel",
-			 ("WordCloud"))
+	st.sidebar.header("Visual Representation of Content in TED Channel")
+	genre = st.sidebar.radio("Choose Visual :",["WordCloud"])
 	if genre == 'WordCloud':
 		st.subheader('Word Cloud of the TED Talk details')
 		plt.figure(figsize=(20, 20))
