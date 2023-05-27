@@ -185,9 +185,12 @@ def recommend_talks(talk_content,n, data):
 st.sidebar.title("Menu Bar:")
 rad=st.sidebar.radio("Navigation👉",["Home","Selecting the dataset :"])
 if rad=="Home":
+	st.markdown( """ <style>.centered-image {display: flex; justify-content: center;}</style>""",unsafe_allow_html=True)
+
 	image = 'TED.gif'
-	st.markdown(f'<style>div.stButton > button:first-child {{ display: block; margin: 0 auto; }}</style>',unsafe_allow_html=True)
-	st.image(image, caption='Made by Radhika')
+	st.markdown( f'<div class="centered-image"><img src="{image}"></div>',unsafe_allow_html=True)
+	#st.markdown(f'<style>div.stButton > button:first-child {{ display: block; margin: 0 auto; }}</style>',unsafe_allow_html=True)
+	#st.image(image, caption='Made by Radhika')
 	st.header('\n\n\nProject submission ')
 	st.subheader('Radhika --1917631')
 
