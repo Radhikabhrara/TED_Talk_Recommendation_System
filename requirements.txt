@@ -1,5 +1,6 @@
 google-api-python-client
 dask
+wordcloud
 plotly-express
 Pillow==8.1.0
 notebook==6.2.0
