@@ -283,10 +283,16 @@ if rad=="Select the dataset :":
 	genre = st.sidebar.radio("Choose Visual :",["WordCloud"])
 	if genre == 'WordCloud':
 		st.subheader('Word Cloud of the TED Talk details')
+		wordcloud = WordCloud().generate(details_corpus)
 		plt.figure(figsize=(20, 20))
-		wc = WordCloud(max_words=1000, width=800, height=400).generate(details_corpus)
-		plt.axis('off')
-		st.plt(wc)
+		fig, ax = plt.subplots()
+		ax.imshow(wordcloud, interpolation='bilinear')
+		ax.axis('off')
+		# Display the word cloud in Streamlit
+		st.plt(fig)
+		#wc = WordCloud(max_words=1000, width=800, height=400).generate(details_corpus)
+		#plt.axis('off')
+		#st.plt(wc)
 
 	st.text("Training Model.....")
 	vectorizer = TfidfVectorizer(analyzer = 'word')
