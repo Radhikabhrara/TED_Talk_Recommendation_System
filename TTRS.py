@@ -278,12 +278,12 @@ if rad=="Select the dataset :":
 	df5=df["details"]
 	st.write(df5)
 	
-	details_corpus = " ".join(df['details'])
+	details_corpus = "  ".join(df5)
 	st.sidebar.header("Visual Representation of Content in TED Channel")
 	genre = st.sidebar.radio("Choose Visual :",["WordCloud"])
 	if genre == 'WordCloud':
 		st.subheader('Word Cloud of the TED Talk details')
-		text = " ".join(df['details'])
+		text = "  ".join(df5)
 		#plt.figure(figsize=(20, 20))
 
 		wordcloud = WordCloud(max_words=1000).generate(text)
