@@ -277,23 +277,6 @@ if rad=="Select the dataset :":
 	st.subheader("Cleaning details by removing puctuations :")
 	df5=df["details"]
 	st.write(df5)
-	
-	details_corpus = "  ".join(df5)
-	st.sidebar.header("Visual Representation of Content in TED Channel")
-	genre = st.sidebar.radio("Choose Visual :",["WordCloud"])
-	if genre == 'WordCloud':
-		st.subheader('Word Cloud of the TED Talk details')
-		text = "  ".join(df5)
-		#plt.figure(figsize=(20, 20))
-
-		wordcloud = WordCloud(max_words=1000).generate(text)
-		
-		fig, ax = plt.subplots()
-		ax.imshow(wordcloud, interpolation='bilinear')
-		ax.axis('off')
-		#Display the word cloud in Streamlit
-		st.plt(fig)
-		
 
 	st.text("Training Model.....")
 	vectorizer = TfidfVectorizer(analyzer = 'word')
