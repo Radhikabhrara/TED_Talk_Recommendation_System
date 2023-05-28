@@ -286,13 +286,13 @@ if rad=="Select the dataset :":
 		#text = " ".join(df['details'])
 		#plt.figure(figsize=(20, 20))
 
-		#wordcloud = WordCloud(max_words=1000).generate(text)
+		wordcloud = WordCloud(max_words=1000).generate(text)
 		
-		#fig, ax = plt.subplots()
-		#ax.imshow(wordcloud, interpolation='bilinear')
-		#ax.axis('off')
-		# Display the word cloud in Streamlit
-		#st.plt(fig)
+		fig, ax = plt.subplots()
+		ax.imshow(wordcloud, interpolation='bilinear')
+		ax.axis('off')
+		#Display the word cloud in Streamlit
+		st.plt(fig)
 		
 
 	st.text("Training Model.....")
