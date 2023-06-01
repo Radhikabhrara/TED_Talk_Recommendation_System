@@ -162,7 +162,7 @@ def recommend_talks(talk_content,n, data):
 	r_name = recommended_data[["Title"]]
 	r_view = recommended_data[['Views']]
 	r_id =recommended_data[['Id']]
-	st.subheader("Ted Talks you might like :- ")
+	st.header("Ted Talks you might like :- ")
 	for i in range(n):
 		id_u = r_id.iloc[i]['Id']
 		pic =r_pic.iloc[i]["Thumbnails"]
@@ -174,7 +174,7 @@ def recommend_talks(talk_content,n, data):
 		image_url = url
 		cap = "Views  :- %s" %view
 		desired_size = (360, 270)
-		st.write("%s" %name)
+		st.subheader("%s" %name)
 
 		markdown_code = f"[![image]({image_url})]({id_url})"
 		# Render the markdown
