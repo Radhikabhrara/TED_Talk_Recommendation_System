@@ -153,6 +153,8 @@ def get_similarities(talk_content, data):
 	return sim 
 
 def recommend_talks(talk_content,n, data):
+	image = 'wait.gif'
+	st.image(image, caption='TED TALKS')
 	df['cos_sim'] = get_similarities(talk_content,data)
 	df.sort_values(by='cos_sim', ascending= False, inplace=True)
 	recommended_data = df.head(n)
